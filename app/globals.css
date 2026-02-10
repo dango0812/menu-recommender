@@ -7,7 +7,8 @@
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
   --width-max-app: 600px;
-  --background: #f7f7f7;
+  --external-background: #f7f7f7;
+  --inner-background: #f8f7f5;
   --shadow-outline-x: -2px 0 8px rgba(0, 0, 0, 0.08), 2px 0 8px rgba(0, 0, 0, 0.08);
   --shadow-outline-top: 0 -1px 3px rgba(0, 0, 0, 0.08);
   --shadow-outline-bottom: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -18,6 +19,8 @@
   --color-warning: #f59e0b;
   --color-error: #ef4444;
   --color-inactive: #9ca3af;
+  --color-tab: #ede0d4;
+  --color-tab-unselected: #9c6c49;
 
   --font-size-xs: 0.6875rem; /* 11px */
   --font-size-sm: 0.8125rem; /* 13px */
@@ -36,13 +39,13 @@
 
 @layer base {
   body {
-    @apply bg-(--background);
+    @apply bg-(--external-background);
   }
 }
 
 @layer components {
   .app-layout {
-    @apply mx-auto h-dvh w-full max-w-(--width-max-app) bg-white;
+    @apply mx-auto h-dvh w-full max-w-(--width-max-app) bg-(--inner-background);
     box-shadow: var(--shadow-outline-x);
   }
 
