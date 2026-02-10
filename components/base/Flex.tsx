@@ -1,13 +1,13 @@
-import { createElement } from 'react';
-
 import { cn } from '@/lib/tailwind-merge';
+
+type FlexElement = 'div' | 'section' | 'nav' | 'header' | 'footer' | 'article' | 'aside' | 'form' | 'ul' | 'li' | 'ol';
 
 interface FlexProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
   direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
   justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
   alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
-  as?: 'div' | 'section' | 'nav' | 'header' | 'footer' | 'article' | 'aside' | 'form' | 'ul' | 'li' | 'ol';
+  as?: FlexElement;
 }
 
 const directionMap = {
@@ -44,17 +44,21 @@ const alignMap = {
  * </Flex>
  * ```
  */
-export function Flex({ as = 'div', children, direction, justifyContent, alignItems, className, ...props }: FlexProps) {
+export function Flex({
+  as: Component = 'div',
+  children,
+  direction,
+  justifyContent,
+  alignItems,
+  className,
+  ...props
+}: FlexProps) {
   const directionClass = direction ? directionMap[direction] : undefined;
   const justifyClass = justifyContent ? justifyMap[justifyContent] : undefined;
   const alignClass = alignItems ? alignMap[alignItems] : undefined;
-
-  return createElement(
-    as,
-    {
-      className: cn('flex', directionClass, justifyClass, alignClass, className),
-      ...props,
-    },
-    children
+  return (
+    <Component className={cn('flex', directionClass, justifyClass, alignClass, className)} {...props}>
+      {children}
+    </Component>
   );
 }
