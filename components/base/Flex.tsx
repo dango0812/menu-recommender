@@ -1,0 +1,60 @@
+import { createElement } from 'react';
+
+import { cn } from '@/lib/tailwind-merge';
+
+interface FlexProps extends React.HTMLAttributes<HTMLElement> {
+  children: React.ReactNode;
+  direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
+  justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
+  alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
+  as?: 'div' | 'section' | 'nav' | 'header' | 'footer' | 'article' | 'aside' | 'form' | 'ul' | 'li' | 'ol';
+}
+
+const directionMap = {
+  row: 'flex-row',
+  column: 'flex-col',
+  'row-reverse': 'flex-row-reverse',
+  'column-reverse': 'flex-col-reverse',
+} as const;
+
+const justifyMap = {
+  'flex-start': 'justify-start',
+  'flex-end': 'justify-end',
+  center: 'justify-center',
+  'space-between': 'justify-between',
+  'space-around': 'justify-around',
+  'space-evenly': 'justify-evenly',
+} as const;
+
+const alignMap = {
+  'flex-start': 'items-start',
+  'flex-end': 'items-end',
+  center: 'items-center',
+  stretch: 'items-stretch',
+  baseline: 'items-baseline',
+} as const;
+
+/**
+ * Flex 컴포넌트
+ * @example
+ * ```tsx
+ * <Flex direction="column" alignItems="center" justifyContent="space-between">
+ *   <Icon />
+ *   <Text>Label</Text>
+ * </Flex>
+ * ```
+ */
+export function Flex({ as = 'div', children, direction, justifyContent, alignItems, className, ...props }: FlexProps) {
+  const directionClass = direction ? directionMap[direction] : undefined;
+  const justifyClass = justifyContent ? justifyMap[justifyContent] : undefined;
+  const alignClass = alignItems ? alignMap[alignItems] : undefined;
+
+  return createElement(
+    as,
+    {
+      className: cn('flex', directionClass, justifyClass, alignClass, className),
+      ...props,
+    },
+    children
+  );
+}
