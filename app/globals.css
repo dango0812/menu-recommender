@@ -1,26 +1,58 @@
 @import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans:
+    'Pretendard Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  --width-max-app: 600px;
+  --background: #f7f7f7;
+  --shadow-outline-x: -2px 0 8px rgba(0, 0, 0, 0.08), 2px 0 8px rgba(0, 0, 0, 0.08);
+  --shadow-outline-top: 0 -1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-outline-bottom: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  --color-primary: #f47b25;
+  --color-primary-foreground: #ffffff;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-inactive: #9ca3af;
+
+  --font-size-xs: 0.6875rem; /* 11px */
+  --font-size-sm: 0.8125rem; /* 13px */
+  --font-size-base: 0.9375rem; /* 15px */
+  --font-size-lg: 1.0625rem; /* 17px */
+  --font-size-xl: 1.1875rem; /* 19px */
+  --font-size-2xl: 1.4375rem; /* 23px */
+  --font-size-3xl: 1.8125rem; /* 29px */
+  --font-size-4xl: 2.1875rem; /* 35px */
+  --font-size-5xl: 2.9375rem; /* 47px */
+  --font-size-6xl: 3.6875rem; /* 59px */
+  --font-size-7xl: 4.4375rem; /* 71px */
+  --font-size-8xl: 5.9375rem; /* 95px */
+  --font-size-9xl: 7.9375rem; /* 127px */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-(--background);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .app-layout {
+    @apply mx-auto h-dvh w-full max-w-(--width-max-app) bg-white;
+    box-shadow: var(--shadow-outline-x);
+  }
+
+  .shadow-outline-x {
+    box-shadow: var(--shadow-outline-x);
+  }
+  .shadow-outline-top {
+    box-shadow: var(--shadow-outline-top);
+  }
+  .shadow-outline-bottom {
+    box-shadow: var(--shadow-outline-bottom);
+  }
 }
