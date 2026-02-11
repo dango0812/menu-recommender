@@ -80,23 +80,23 @@ export function NumericSpinner({
   onNumberChange,
   className,
 }: NumericSpinnerProps) {
-  const decrement = !disabled && number > minNumber;
-  const increment = !disabled && number < maxNumber;
+  const decrement = Boolean(onNumberChange) && !disabled && number > minNumber;
+  const increment = Boolean(onNumberChange) && !disabled && number < maxNumber;
 
   const handleDecrement = () => {
-    if (!decrement || !onNumberChange) {
+    if (!decrement) {
       return;
     }
 
-    onNumberChange(number - 1);
+    onNumberChange?.(number - 1);
   };
 
   const handleIncrement = () => {
-    if (!increment || !onNumberChange) {
+    if (!increment) {
       return;
     }
 
-    onNumberChange(number + 1);
+    onNumberChange?.(number + 1);
   };
 
   return (

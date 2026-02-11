@@ -10,9 +10,9 @@
   --external-background: #f7f7f7;
   --inner-background: #f8f7f5;
   --border-card: #f4ece7;
-  --shadow-outline-x: -2px 0 8px rgba(0, 0, 0, 0.08), 2px 0 8px rgba(0, 0, 0, 0.08);
-  --shadow-outline-top: 0 -1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-outline-bottom: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-outline-x: -2px 0 8px rgb(0 0 0 / 8%), 2px 0 8px rgb(0 0 0 / 8%);
+  --shadow-outline-top: 0 -1px 3px rgb(0 0 0 / 8%);
+  --shadow-outline-bottom: 0 1px 3px rgb(0 0 0 / 8%);
   --bg-spinner: #f8f7f5;
 
   --color-primary: #f47b25;
