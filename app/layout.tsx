@@ -1,9 +1,16 @@
 import type { Metadata } from 'next';
+import { Noto_Sans_KR } from 'next/font/google';
 import type { PropsWithChildren } from 'react';
 
 import Layout from '@/components/layout/Layout';
 
 import './globals.css';
+
+const notoSansKR = Noto_Sans_KR({
+  variable: '--font-notosans',
+  weight: ['100', '300', '400', '500', '600', '700', '900'],
+  subsets: ['latin'],
+});
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const metadata: Metadata = {
@@ -14,14 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko">
-      <head>
-        <link
-          rel="stylesheet"
-          as="style"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
-        />
-      </head>
-      <body>
+      <body className={`${notoSansKR.variable} ${notoSansKR.className}`}>
         <Layout>{children}</Layout>
       </body>
     </html>

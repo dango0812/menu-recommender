@@ -25,7 +25,7 @@ export function BottomNavigation({ items, className }: BottomNavigationProps) {
   const pathname = usePathname();
 
   return (
-    <nav className={cn('absolute right-0 bottom-0 left-0 z-50 bg-white shadow-outline-top', className)}>
+    <nav className={cn('shrink-0 bg-white shadow-outline-top', className)}>
       <Flex className="items-center justify-around">
         {items.map(item => {
           const isActive = pathname === item.href;

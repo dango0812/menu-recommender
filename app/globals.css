@@ -2,13 +2,13 @@
 
 @theme {
   --font-sans:
-    'Pretendard Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'var(--font-notosans)', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
   --width-max-app: 600px;
-  --external-background: #f7f7f7;
-  --inner-background: #f8f7f5;
+  --external-background: #f9fafb;
+  --inner-background: #fafafa;
   --border-card: #f4ece7;
   --shadow-outline-x: -2px 0 8px rgb(0 0 0 / 8%), 2px 0 8px rgb(0 0 0 / 8%);
   --shadow-outline-top: 0 -1px 3px rgb(0 0 0 / 8%);
