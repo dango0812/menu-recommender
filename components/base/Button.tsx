@@ -14,7 +14,7 @@ const buttonVariants = cva(
     variants: {
       color: {
         primary: 'bg-primary text-white active:bg-orange-500',
-        danger: 'bg-(--color-error) text-white active:bg-red-500',
+        danger: 'bg-error text-white active:bg-red-500',
         gray: 'bg-gray-200 text-gray-800 active:bg-gray-300',
         light: 'bg-white text-gray-900 active:bg-gray-200',
       },
