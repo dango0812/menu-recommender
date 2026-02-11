@@ -1,3 +1,4 @@
+export { Button } from './Button';
 export { Card } from './Card';
 export { Flex } from './Flex';
 export { Lottie } from './Lottie';
