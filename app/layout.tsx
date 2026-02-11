@@ -10,6 +10,7 @@ const notoSansKR = Noto_Sans_KR({
   variable: '--font-notosans',
   weight: ['100', '300', '400', '500', '600', '700', '900'],
   subsets: ['latin'],
+  preload: false,
 });
 
 // eslint-disable-next-line react-refresh/only-export-components
