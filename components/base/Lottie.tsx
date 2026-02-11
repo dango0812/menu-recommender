@@ -23,7 +23,6 @@ interface LottieProps {
  */
 function LottieComponent({ src, loop = true, autoplay = true, controller, className }: LottieProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<AnimationItem | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) {
@@ -38,8 +37,6 @@ function LottieComponent({ src, loop = true, autoplay = true, controller, classN
       path: src,
     });
 
-    animationRef.current = animation;
-
     if (controller) {
       controller.current = animation;
     }
@@ -47,7 +44,7 @@ function LottieComponent({ src, loop = true, autoplay = true, controller, classN
     return () => {
       animation.destroy();
     };
-  }, [src, loop, autoplay, controller]);
+  }, [src, loop, autoplay]);
 
   return <div ref={containerRef} className={cn('h-full w-full', className)} />;
 }
