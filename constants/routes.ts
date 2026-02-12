@@ -8,3 +8,12 @@ export const ROUTES = {
   HISTORY: '/history',
   TASTE_SETTING: '/taste-setting',
 } as const;
+
+/**
+ * API 경로
+ */
+export const API_ROUTES = {
+  RECIPES: {
+    GET: '/api/recipes',
+  },
+} as const;

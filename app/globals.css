@@ -1,20 +1,27 @@
 @import 'tailwindcss';
 
 @theme {
+  /* Typography */
   --font-sans:
     var(--font-notosans), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
+  /* Layout */
   --width-max-app: 600px;
+
+  /* Backgrounds & Shadows */
+  --bg-spinner: #f8f7f5;
   --external-background: #f9fafb;
   --inner-background: #fafafa;
-  --border-card: #f4ece7;
   --shadow-outline-x: -2px 0 8px rgb(0 0 0 / 8%), 2px 0 8px rgb(0 0 0 / 8%);
   --shadow-outline-top: 0 -1px 3px rgb(0 0 0 / 8%);
   --shadow-outline-bottom: 0 1px 3px rgb(0 0 0 / 8%);
-  --bg-spinner: #f8f7f5;
 
+  /* Borders */
+  --border-card: #f4ece7;
+
+  /* Colors */
   --color-primary: #f47b25;
   --color-primary-foreground: #ffffff;
   --color-success: #22c55e;
@@ -24,6 +31,7 @@
   --color-tab: #ede0d4;
   --color-tab-unselected: #9c6c49;
 
+  /* Font Sizes */
   --font-size-xs: 0.6875rem; /* 11px */
   --font-size-sm: 0.8125rem; /* 13px */
   --font-size-base: 0.9375rem; /* 15px */
@@ -40,6 +48,10 @@
 }
 
 @layer base {
+  html {
+    @apply overscroll-y-none;
+    -webkit-overflow-scrolling: touch;
+  }
   body {
     @apply bg-(--external-background);
   }
