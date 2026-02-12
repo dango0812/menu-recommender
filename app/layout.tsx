@@ -3,6 +3,8 @@ import { Noto_Sans_KR } from 'next/font/google';
 import type { PropsWithChildren } from 'react';
 
 import Layout from '@/components/layout/Layout';
+import MotionProvider from '@/providers/motion/MotionProvider';
+import { QueryProvider } from '@/providers/query';
 
 import './globals.css';
 
@@ -23,7 +25,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko">
       <body className={`${notoSansKR.variable} ${notoSansKR.className}`}>
-        <Layout>{children}</Layout>
+        <QueryProvider>
+          <MotionProvider>
+            <Layout>{children}</Layout>
+          </MotionProvider>
+        </QueryProvider>
       </body>
     </html>
   );
