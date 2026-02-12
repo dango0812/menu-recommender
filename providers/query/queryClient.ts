@@ -3,7 +3,7 @@ import { QueryClient } from '@tanstack/react-query';
 /**
  * QueryClient 인스턴스 생성 함수
  */
-function queryClient(): QueryClient {
+function createQueryClient(): QueryClient {
   return new QueryClient({
     defaultOptions: {
       queries: {
@@ -29,12 +29,12 @@ const isSSR = typeof window === 'undefined';
 function getQueryClient(): QueryClient {
   if (isSSR) {
     // 서버에서는 항상 새 QueryClient 생성
-    return queryClient();
+    return createQueryClient();
   }
 
   // 브라우저에서는 기존 인스턴스 재사용
   if (!browserQueryClient) {
-    browserQueryClient = queryClient();
+    browserQueryClient = createQueryClient();
   }
   return browserQueryClient;
 }
