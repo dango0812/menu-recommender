@@ -41,8 +41,11 @@ export function HomeFoodPanel() {
     }
 
     setErrorMessage(null);
-    mutate();
-    openRecipeSheet();
+    mutate(undefined, {
+      onSuccess: () => {
+        openRecipeSheet();
+      },
+    });
   };
 
   return (
