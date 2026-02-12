@@ -11,12 +11,13 @@
  * ```
  */
 export function pickRandom<T>(arr: T[], count: number): T[] {
-  const result = new Set<T>();
+  const shuffled = [...arr];
   const limit = Math.min(count, arr.length);
 
-  while (result.size < limit) {
-    result.add(arr[Math.floor(Math.random() * arr.length)]);
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
 
-  return [...result];
+  return shuffled.slice(0, limit);
 }
