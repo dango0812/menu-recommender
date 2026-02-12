@@ -24,20 +24,29 @@ export function useBodyScrollLock(isLocked: boolean) {
       return;
     }
 
-    // 모든 DOM 읽기 먼저 수행 (reflow 최소화)
+    const body = document.body;
+
+    const orgPos = body.style.position;
+    const orgTop = body.style.top;
+    const orgWidth = body.style.width;
+    const orgPaddingRight = body.style.paddingRight;
+
     const scrollY = window.scrollY;
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
-    document.body.style.cssText = `
-      position: fixed; 
-      top: -${scrollY}px;
-      width: 100%;
-      overflow-y: scroll;
-      padding-right: ${scrollbarWidth}px;
-    `;
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.width = '100%';
+
+    if (scrollbarWidth > 0) {
+      body.style.paddingRight = `${scrollbarWidth}px`;
+    }
 
     return () => {
-      document.body.style.cssText = '';
+      body.style.position = orgPos;
+      body.style.top = orgTop;
+      body.style.width = orgWidth;
+      body.style.paddingRight = orgPaddingRight;
       window.scrollTo(0, scrollY);
     };
   }, [isLocked]);
