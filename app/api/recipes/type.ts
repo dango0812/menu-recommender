@@ -1,3 +1,5 @@
+import { type RecipeLevel } from '@/utils/recipe';
+
 /**
  * URL
  * https://www.foodsafetykorea.go.kr/api/openApiInfo.do?menu_grp=MENU_GRP31&menu_no=661&show_cnt=10&start_idx=1&svc_no=COOKRCP01
@@ -66,10 +68,14 @@ export interface Recipe {
 
 /** Recipe Filtered Data */
 export interface RecipeFilteredData {
-  /** 메뉴 */
+  /** 레시피 ID */
+  id: string;
+  /** 메뉴명 */
   menu: string;
   /** 조리법 팁 */
   tip: string;
+  /* 요리 종류 */
+  type: string;
   /** 썸네일 이미지 */
   thumbnail: string;
   /** 상세 이미지 */
@@ -89,6 +95,8 @@ export interface RecipeFilteredData {
     step: string;
     img: string;
   }>;
+  /** 난이도 */
+  level: RecipeLevel;
 }
 
 /** API 전체 응답 구조 타입 */
