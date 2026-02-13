@@ -4,7 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useVirtualizer } from '@tanstack/react-virtual';
 
-import { Flex, Text } from '@/components/base';
+import { Flex } from '@/components/base';
+import { EmptyContent } from '@/components/common/EmptyContent';
 import { useRecipeStore } from '@/providers/recipe/RecipeStoreContext';
 
 import { RecipeCard } from './RecipeCard';
@@ -72,8 +73,11 @@ export function RecipeList() {
 
   if (filteredRecipes.length === 0) {
     return (
-      <Flex justifyContent="center" alignItems="center" className="py-20">
-        <Text className="text-lg text-gray-500">레시피를 찾을 수 없습니다.</Text>
+      <Flex alignItems="center" justifyContent="center" className="h-full">
+        <EmptyContent
+          title="검색 결과가 없어요"
+          description={`단어의 철자를 다시 확인해주세요.\n또는 단어의 수를 줄이거나, 일반적인 검색어로 다시 검색해보세요.`}
+        />
       </Flex>
     );
   }
