@@ -17,7 +17,6 @@ export const RecipeStoreProvider = ({ children, initialRecipes }: RecipeStorePro
   const [store] = useState(() =>
     createRecipeStore({
       recipes: initialRecipes,
-      filteredRecipes: initialRecipes, // 초기 진입 시 전체 목록 노출
     })
   );
 
