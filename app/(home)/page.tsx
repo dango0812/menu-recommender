@@ -2,7 +2,7 @@ import { Card, Flex, Text } from '@/components/base';
 
 import { MenuRecommender } from './_components/MenuRecommender';
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="px-5 pt-5 pb-6 sm:px-6 sm:pt-10">
       <Flex direction="column" alignItems="center" justifyContent="center" className="mb-5 gap-2">

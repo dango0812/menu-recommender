@@ -1,10 +1,14 @@
 'use client';
 
+import { useMemo } from 'react';
+
 import { useMutation } from '@tanstack/react-query';
 
 import type { RecipeFilteredData } from '@/app/api/recipes/type';
 import { queryKeys } from '@/constants/query-keys';
 import { API_ROUTES } from '@/constants/routes';
+import { useRecipeStore } from '@/providers/recipe/RecipeStoreContext';
+import { applyFilters } from '@/stores/recipe-store';
 
 interface UseRecipesParams {
   isSoupIncluded: boolean;
@@ -16,6 +20,24 @@ interface RecipesResponse {
   error?: string;
 }
 
+/**
+ * 레시피 추천 API를 호출하는 Hook
+ *
+ * @param isSoupIncluded 국/찌개 포함 여부
+ * @param sideDishCount 반찬 개수
+ * @returns 레시피 목록을 가져오는 mutation
+ *
+ * @example
+ * ```tsx
+ * const { mutate, data, isPending } = useRecipes({
+ *   isSoupIncluded: true,
+ *   sideDishCount: 3
+ * });
+ *
+ * // 레시피 추천 요청
+ * mutate();
+ * ```
+ */
 export function useRecipes({ isSoupIncluded, sideDishCount }: UseRecipesParams) {
   return useMutation({
     mutationKey: queryKeys.recipes.all,
@@ -42,4 +64,21 @@ async function fetcher(params: UseRecipesParams): Promise<RecipeFilteredData[]> 
   }
 
   return result.data;
+}
+
+/**
+ * 레시피 Store에서 현재 검색어와 필터를 적용한 목록을 반환하는 Hook
+ *
+ * @returns 필터링된 레시피 목록
+ * @example
+ * ```tsx
+ * const filteredRecipes = useFilteredRecipes();
+ * ```
+ */
+export function useFilteredRecipes() {
+  const recipes = useRecipeStore(state => state.recipes);
+  const searchQuery = useRecipeStore(state => state.searchQuery);
+  const filter = useRecipeStore(state => state.filter);
+
+  return useMemo(() => applyFilters(recipes, searchQuery, filter), [recipes, searchQuery, filter]);
 }

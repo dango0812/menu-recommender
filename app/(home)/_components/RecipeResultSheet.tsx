@@ -36,7 +36,8 @@ export default function RecipeResultSheet({
                     width={64}
                     height={64}
                     loading="lazy"
-                    className="h-10 w-10 rounded-xl object-cover sm:h-16 sm:w-16 sm:rounded-2xl"
+                    className="h-10 min-h-10 w-10 min-w-10 rounded-xl object-cover sm:h-16 sm:min-h-16 sm:w-16
+                      sm:min-w-16 sm:rounded-2xl"
                   />
                   <Flex direction="column" justifyContent="center">
                     <Text as="span" className="text-sm font-semibold text-gray-800">

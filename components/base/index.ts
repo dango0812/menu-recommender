@@ -1,6 +1,8 @@
 export { Button } from './Button';
 export { Card } from './Card';
+export { Chip } from './Chip';
 export { Flex } from './Flex';
+export { Input } from './Input';
 export { Lottie } from './Lottie';
 export { NumericSpinner } from './NumericSpinner';
 export { Switch } from './Switch';
