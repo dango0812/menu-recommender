@@ -15,7 +15,6 @@ export function RecipeListSkeleton() {
           </Flex>
         </Card>
       ))}
-      ``
     </div>
   );
 }
