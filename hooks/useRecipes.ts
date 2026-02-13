@@ -1,5 +1,7 @@
 'use client';
 
+import { useMemo } from 'react';
+
 import { useMutation } from '@tanstack/react-query';
 
 import type { RecipeFilteredData } from '@/app/api/recipes/type';
@@ -73,5 +75,10 @@ async function fetcher(params: UseRecipesParams): Promise<RecipeFilteredData[]> 
  * const filteredRecipes = useFilteredRecipes();
  * ```
  */
-export const useFilteredRecipes = () =>
-  useRecipeStore(state => applyFilters(state.recipes, state.searchQuery, state.filter));
+export function useFilteredRecipes() {
+  const recipes = useRecipeStore(state => state.recipes);
+  const searchQuery = useRecipeStore(state => state.searchQuery);
+  const filter = useRecipeStore(state => state.filter);
+
+  return useMemo(() => applyFilters(recipes, searchQuery, filter), [recipes, searchQuery, filter]);
+}
