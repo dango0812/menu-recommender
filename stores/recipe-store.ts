@@ -7,9 +7,7 @@ import { normalizeString } from '@/utils/string';
 export interface RecipeState {
   /** 원본 레시피 목록 */
   recipes: RecipeFilteredData[];
-  /** 필터링된 레시피 목록 */
-  filteredRecipes: RecipeFilteredData[];
-  /** Chip으로 선택된 필터 */
+  /** 선택된 필터 */
   filter: FilterType;
   /** 검색 쿼리 */
   searchQuery: string;
@@ -25,7 +23,6 @@ export type RecipeStore = RecipeState & RecipeActions;
 export const createRecipeStore = (initState: Partial<RecipeState>) => {
   const defaultState: RecipeState = {
     recipes: [],
-    filteredRecipes: [],
     filter: FILTER_OPTIONS[0].value,
     searchQuery: '',
     ...initState,
@@ -36,16 +33,14 @@ export const createRecipeStore = (initState: Partial<RecipeState>) => {
 
     // 검색어 변경 시 실행
     setSearchQuery: (query: string) =>
-      set((state: RecipeState) => ({
+      set(() => ({
         searchQuery: query,
-        filteredRecipes: applyFilters(state.recipes, query, state.filter),
       })),
 
     // 필터 변경 시 실행
     setFilter: (filter: FilterType) =>
-      set((state: RecipeState) => ({
+      set(() => ({
         filter,
-        filteredRecipes: applyFilters(state.recipes, state.searchQuery, filter),
       })),
   }));
 };
@@ -57,12 +52,14 @@ export const createRecipeStore = (initState: Partial<RecipeState>) => {
  * @param filter 선택된 필터
  * @returns 필터링된 레시피 목록
  */
-function applyFilters(recipes: RecipeFilteredData[], query: string, filter: FilterType): RecipeFilteredData[] {
+export function applyFilters(recipes: RecipeFilteredData[], query: string, filter: FilterType): RecipeFilteredData[] {
+  const normalizedQuery = normalizeString(query);
+
   return recipes.filter(recipe => {
     // 검색어 필터링 (띄어쓰기 제거하여 검색)
-    const matchesSearch = normalizeString(recipe.menu).includes(normalizeString(query));
+    const matchesSearch = normalizeString(recipe.menu).includes(normalizedQuery);
 
-    // 레시피 Chip 필터
+    // 레시피 필터
     const matchesFilter = (() => {
       switch (filter) {
         case 'all':

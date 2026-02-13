@@ -6,7 +6,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 
 import { Flex } from '@/components/base';
 import { EmptyContent } from '@/components/common/EmptyContent';
-import { useRecipeStore } from '@/providers/recipe/RecipeStoreContext';
+import { useFilteredRecipes } from '@/hooks/useRecipes';
 
 import { RecipeCard } from './RecipeCard';
 
@@ -22,7 +22,7 @@ interface Layout {
 
 export function RecipeList() {
   const parentRef = useRef<HTMLDivElement>(null);
-  const filteredRecipes = useRecipeStore(state => state.filteredRecipes);
+  const filteredRecipes = useFilteredRecipes();
   const [layout, setLayout] = useState<Layout>({ columns: 2, itemWidth: 0, itemHeight: 0 });
 
   // 너비 및 높이 계산 함수
