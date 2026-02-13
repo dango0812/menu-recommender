@@ -63,6 +63,31 @@
     box-shadow: var(--shadow-outline-x);
   }
 
+  .app-layout main::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .app-layout main::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .app-layout main::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+  }
+
+  .app-layout main::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+
+  .app-layout main::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
   .shadow-outline-x {
     box-shadow: var(--shadow-outline-x);
   }
@@ -71,5 +96,16 @@
   }
   .shadow-outline-bottom {
     box-shadow: var(--shadow-outline-bottom);
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE & Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
