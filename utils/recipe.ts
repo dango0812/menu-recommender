@@ -8,16 +8,17 @@ export type RecipeLevel = 'easy' | 'medium' | 'hard';
  *
  * @example
  * getRecipeLevel(3); // 'easy'
- * getRecipeLevel(8); // 'medium'
+ * getRecipeLevel(5); // 'medium'
  * getRecipeLevel(12); // 'hard'
  */
 export function getRecipeLevel(stepCount: number): RecipeLevel {
-  switch (true) {
-    case stepCount <= 3:
-      return 'easy';
-    case stepCount <= 5:
-      return 'medium';
-    default:
-      return 'hard';
+  if (stepCount <= 3) {
+    return 'easy';
   }
+
+  if (stepCount <= 5) {
+    return 'medium';
+  }
+
+  return 'hard';
 }

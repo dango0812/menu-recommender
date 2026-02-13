@@ -45,6 +45,8 @@ export const createRecipeStore = (initState: Partial<RecipeState>) => {
   }));
 };
 
+const FILTER_LABEL_MAP: Record<string, string> = Object.fromEntries(FILTER_OPTIONS.map(opt => [opt.value, opt.label]));
+
 /**
  * 레시피 필터 함수
  * @param recipes 원본 레시피 목록
@@ -65,11 +67,11 @@ export function applyFilters(recipes: RecipeFilteredData[], query: string, filte
         case 'all':
           return true;
         case 'soup':
-          return recipe.type.includes(FILTER_OPTIONS[1].label);
+          return recipe.type.includes(FILTER_LABEL_MAP['soup']);
         case 'side-dish':
-          return recipe.type.includes(FILTER_OPTIONS[2].label);
+          return recipe.type.includes(FILTER_LABEL_MAP['side-dish']);
         case 'dessert':
-          return recipe.type.includes(FILTER_OPTIONS[3].label);
+          return recipe.type.includes(FILTER_LABEL_MAP['dessert']);
         case 'easy':
         case 'medium':
         case 'hard':

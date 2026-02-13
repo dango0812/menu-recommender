@@ -9,6 +9,7 @@ import { EmptyContent } from '@/components/common/EmptyContent';
 import { useFilteredRecipes } from '@/hooks/useRecipes';
 
 import { RecipeCard } from './RecipeCard';
+import { RecipeListSkeleton } from './RecipeListSkeleton';
 
 const BREAKPOINT = 390;
 const GAP = 20;
@@ -24,6 +25,7 @@ export function RecipeList() {
   const parentRef = useRef<HTMLDivElement>(null);
   const filteredRecipes = useFilteredRecipes();
   const [layout, setLayout] = useState<Layout>({ columns: 2, itemWidth: 0, itemHeight: 0 });
+  const isLayoutReady = layout.itemWidth > 0;
 
   // 너비 및 높이 계산 함수
   const updateLayout = useCallback(() => {
@@ -70,6 +72,15 @@ export function RecipeList() {
   useEffect(() => {
     rowVirtualizer.measure();
   }, [layout.itemHeight, layout.columns, rowVirtualizer]);
+
+  // 레이아웃 계산 전 스켈레톤 표시
+  if (!isLayoutReady) {
+    return (
+      <div ref={parentRef} className="no-scrollbar min-h-0 w-full flex-1 overflow-y-auto">
+        <RecipeListSkeleton />
+      </div>
+    );
+  }
 
   if (filteredRecipes.length === 0) {
     return (

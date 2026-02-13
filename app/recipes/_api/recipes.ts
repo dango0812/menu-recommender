@@ -45,7 +45,7 @@ export async function fetchAllRecipes(): Promise<RecipeFilteredData[]> {
         await fetchBatch(start + PAGE_SIZE);
       }
     } catch (error) {
-      console.error('Fetch Error:', error);
+      return [];
     }
   }
 
