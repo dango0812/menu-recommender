@@ -36,7 +36,15 @@ export interface ChipProps
 }
 
 /**
- * Chip 컴포넌트
+ * Renders a stylable chip button with configurable color and size variants.
+ *
+ * @param children - Content displayed inside the chip
+ * @param color - Variant color: "primary", "danger", "gray", or "light"
+ * @param size - Variant size: "sm", "md", or "lg"
+ * @param className - Additional class names applied to the button
+ * @param disabled - Whether the button is disabled
+ * @returns The rendered chip button element
+ *
  * @example
  * ```tsx
  * <Chip color="primary" size="sm">

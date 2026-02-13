@@ -5,6 +5,14 @@ import { useRecipeStore } from '@/providers/recipe/RecipeStoreContext';
 
 import { FILTER_OPTIONS } from '../_constants/filter-options';
 
+/**
+ * Render a horizontally scrollable row of filter chips for selecting the current recipe filter.
+ *
+ * Each chip represents an entry from `FILTER_OPTIONS`; the chip matching the current filter is styled
+ * as `primary`, and clicking a chip updates the shared recipe filter in the store.
+ *
+ * @returns A JSX element containing the horizontally scrollable list of filter chips
+ */
 export function RecipeFilter() {
   const filter = useRecipeStore(state => state.filter);
   const setFilter = useRecipeStore(state => state.setFilter);

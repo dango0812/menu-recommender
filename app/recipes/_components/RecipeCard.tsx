@@ -19,6 +19,16 @@ interface RecipeCardProps {
   contentHeight: number;
 }
 
+/**
+ * Render a recipe preview card with image, difficulty badge, overlay action buttons, title, tip, and a "레시피 보기" button.
+ *
+ * @param recipe - Data used to populate the card (image sources, menu title, tip text, and difficulty level).
+ * @param width - Card width (CSS pixels).
+ * @param height - Card height (CSS pixels).
+ * @param imageHeight - Height of the image area (CSS pixels).
+ * @param contentHeight - Height of the content area below the image (CSS pixels).
+ * @returns The card as a JSX element.
+ */
 export function RecipeCard({ recipe, width, height, imageHeight, contentHeight }: RecipeCardProps) {
   return (
     <article

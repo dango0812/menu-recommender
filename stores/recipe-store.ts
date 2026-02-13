@@ -48,11 +48,12 @@ export const createRecipeStore = (initState: Partial<RecipeState>) => {
 const FILTER_LABEL_MAP: Record<string, string> = Object.fromEntries(FILTER_OPTIONS.map(opt => [opt.value, opt.label]));
 
 /**
- * 레시피 필터 함수
- * @param recipes 원본 레시피 목록
- * @param query 검색 쿼리
- * @param filter 선택된 필터
- * @returns 필터링된 레시피 목록
+ * Filters a list of recipes by search query and selected filter.
+ *
+ * @param recipes - The original array of recipes to filter.
+ * @param query - Search text used to match recipe menus.
+ * @param filter - Selected filter determining recipe type or difficulty.
+ * @returns The subset of `recipes` that match the search query and selected filter.
  */
 export function applyFilters(recipes: RecipeFilteredData[], query: string, filter: FilterType): RecipeFilteredData[] {
   const normalizedQuery = normalizeString(query);

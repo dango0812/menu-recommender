@@ -13,6 +13,14 @@ interface RecipeResultSheetProps {
   onCloseRecipeSheet: () => void;
 }
 
+/**
+ * Render a bottom sheet that displays recipe recommendations with thumbnails, tips, and action buttons.
+ *
+ * @param recipeData - Optional list of recipe entries to display; defaults to an empty array.
+ * @param openRecipeSheet - Whether the bottom sheet is open.
+ * @param onCloseRecipeSheet - Callback invoked to close the bottom sheet.
+ * @returns The BottomSheet JSX element containing the recipe list (if any) and primary action buttons.
+ */
 export default function RecipeResultSheet({
   recipeData = [],
   openRecipeSheet,

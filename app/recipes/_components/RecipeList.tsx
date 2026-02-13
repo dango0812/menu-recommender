@@ -21,6 +21,13 @@ interface Layout {
   itemHeight: number;
 }
 
+/**
+ * Renders a responsive, virtualized grid of RecipeCard items that adapts between one and two columns based on the container width.
+ *
+ * Displays a loading skeleton until item dimensions are measured and shows an empty-state message when no filtered recipes are available.
+ *
+ * @returns The component tree for the virtualized recipe list.
+ */
 export function RecipeList() {
   const parentRef = useRef<HTMLDivElement>(null);
   const filteredRecipes = useFilteredRecipes();

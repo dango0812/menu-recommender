@@ -32,12 +32,23 @@ type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> &
   };
 
 /**
- * Input 컴포넌트
+ * Render a styled input with optional start/end decorators and optional full-width layout.
+ *
+ * Renders an input element wrapped in a positioned container; when provided, `startDecorator` and
+ * `endDecorator` are placed inside the input wrapper at the left and right edges respectively.
+ *
+ * @param ref - Forwarded ref for the underlying input element
+ * @param className - Additional class names applied to the input element
+ * @param startDecorator - Element rendered at the left side inside the input wrapper (e.g., icon)
+ * @param endDecorator - Element rendered at the right side inside the input wrapper (e.g., icon)
+ * @param fullWidth - If `true`, the container and input expand to fill available horizontal space
+ * @returns The rendered input element
+ *
  * @example
  * ```tsx
- * <Input placeholder="검색어를 입력하세요" />
- * <Input fullWidth placeholder="전체 너비" />
- * <Input startDecorator={<Search />} placeholder="검색" />
+ * <Input placeholder="Search…" />
+ * <Input fullWidth placeholder="Full width" />
+ * <Input startDecorator={<SearchIcon />} placeholder="Search" />
  * ```
  */
 export function Input({ ref, className, startDecorator, endDecorator, fullWidth, ...props }: InputProps) {

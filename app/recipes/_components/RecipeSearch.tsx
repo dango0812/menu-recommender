@@ -5,6 +5,13 @@ import { Search } from 'lucide-react';
 import { Flex, Input } from '@/components/base';
 import { useRecipeStore } from '@/providers/recipe/RecipeStoreContext';
 
+/**
+ * Renders a centered search input bound to the recipe store's query.
+ *
+ * Updates the global recipe search query when the user types.
+ *
+ * @returns A React element containing the search input control
+ */
 export function RecipeSearch() {
   const searchQuery = useRecipeStore(state => state.searchQuery);
   const setSearchQuery = useRecipeStore(state => state.setSearchQuery);

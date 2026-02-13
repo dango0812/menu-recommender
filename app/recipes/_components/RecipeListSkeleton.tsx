@@ -1,5 +1,12 @@
 import { Card, Flex } from '@/components/base';
 
+/**
+ * Render a responsive grid of six skeleton recipe cards.
+ *
+ * Each card contains an image placeholder and two stacked content placeholders and uses a pulse animation to indicate loading.
+ *
+ * @returns A JSX element containing the skeleton grid of recipe cards
+ */
 export function RecipeListSkeleton() {
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">

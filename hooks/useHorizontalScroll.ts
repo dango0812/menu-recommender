@@ -14,20 +14,12 @@ interface UseHorizontalScrollOptions {
 }
 
 /**
- * 좌우 스크롤 기능을 제공하는 커스텀 Hook
+ * Create a ref that enables horizontal scrolling on an element via wheel and drag interactions.
  *
- * @example
- * ```tsx
- * function Component() {
- *   const scrollRef = useHorizontalScroll();
- *
- *   return (
- *     <div ref={scrollRef} className="overflow-x-auto">
- *       {items.map(item => <Chip key={item.id}>{item.name}</Chip>)}
- *     </div>
- *   );
- * }
- * ```
+ * @param options - Configuration options.
+ * @param options.enableWheelScroll - When true, vertical wheel movement is translated into horizontal scrolling. Default: `true`.
+ * @param options.enableDragScroll - When true, dragging the element (mouse down + move) scrolls it horizontally and updates cursor to indicate dragging. Default: `true`.
+ * @returns A ref object to attach to the scrollable element; `ref.current` should be the target HTMLElement.
  */
 export function useHorizontalScroll<T extends HTMLElement = HTMLDivElement>(options: UseHorizontalScrollOptions = {}) {
   const { enableWheelScroll = true, enableDragScroll = true } = options;

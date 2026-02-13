@@ -3,8 +3,9 @@ import { env } from '@/constants/env';
 import { getRecipeLevel } from '@/utils/recipe';
 
 /**
- * 식품의약품안전처 공공데이터 조리식품의 레시피 API 호출 함수
- * @returns 레시피 목록
+ * Fetches all recipes from the Korea Ministry of Food and Drug Safety public recipe API and aggregates them into a filtered list.
+ *
+ * @returns An array of recipes with selected fields: `id`, `menu`, `tip`, `type`, `thumbnail`, `detailImage`, `ingredients`, `nutrition` (calories, protein, fat, carbs, sodium), `instructions` (ordered steps with optional images), and a computed `level`
  */
 export async function fetchAllRecipes(): Promise<RecipeFilteredData[]> {
   let allRecipes: Recipe[] = [];
@@ -15,6 +16,11 @@ export async function fetchAllRecipes(): Promise<RecipeFilteredData[]> {
    */
   const PAGE_SIZE = 600;
 
+  /**
+   * Fetches a PAGE_SIZE slice of recipes beginning at the given 1-based start index, appends any retrieved rows to the surrounding `allRecipes` array, and continues fetching recursively while full pages are returned.
+   *
+   * @param start - 1-based index of the first record to request for this batch
+   */
   async function fetchBatch(start: number) {
     const end = start + PAGE_SIZE - 1;
     const url = `${env.FOOD_SAFETY_API_BASE_URL}/${env.FOOD_SAFETY_API_KEY}/COOKRCP01/json/${start}/${end}`;

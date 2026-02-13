@@ -1,15 +1,10 @@
 export type RecipeLevel = 'easy' | 'medium' | 'hard';
 
 /**
- * 레시피 난이도 계산 함수 (단계 수에 따라 난이도를 분류)
+ * Classifies a recipe's difficulty based on its number of steps.
  *
- * @param stepCount 레시피 단계 수
- * @returns 난이도 'easy' | 'medium' | 'hard'
- *
- * @example
- * getRecipeLevel(3); // 'easy'
- * getRecipeLevel(5); // 'medium'
- * getRecipeLevel(12); // 'hard'
+ * @param stepCount - Number of steps in the recipe
+ * @returns `'easy'` if `stepCount` is less than or equal to 3, `'medium'` if `stepCount` is less than or equal to 5, `'hard'` otherwise
  */
 export function getRecipeLevel(stepCount: number): RecipeLevel {
   if (stepCount <= 3) {

@@ -21,22 +21,11 @@ interface RecipesResponse {
 }
 
 /**
- * 레시피 추천 API를 호출하는 Hook
+ * Hook that provides a mutation to fetch recommended recipes based on soup inclusion and side dish count.
  *
- * @param isSoupIncluded 국/찌개 포함 여부
- * @param sideDishCount 반찬 개수
- * @returns 레시피 목록을 가져오는 mutation
- *
- * @example
- * ```tsx
- * const { mutate, data, isPending } = useRecipes({
- *   isSoupIncluded: true,
- *   sideDishCount: 3
- * });
- *
- * // 레시피 추천 요청
- * mutate();
- * ```
+ * @param isSoupIncluded - Whether to include soups/stews in the recommended results
+ * @param sideDishCount - Number of side dishes to request for the recommendations
+ * @returns The mutation result object that triggers fetching recommended recipes and contains the request status and resulting recipe data
  */
 export function useRecipes({ isSoupIncluded, sideDishCount }: UseRecipesParams) {
   return useMutation({
@@ -45,6 +34,13 @@ export function useRecipes({ isSoupIncluded, sideDishCount }: UseRecipesParams) 
   });
 }
 
+/**
+ * Fetches recommended recipes from the API using the provided soup inclusion and side-dish count.
+ *
+ * @param params - Request parameters: `isSoupIncluded` indicates whether to include soups/stews; `sideDishCount` is the desired number of side dishes.
+ * @returns The array of recipes (`RecipeFilteredData[]`) returned by the API that match the requested criteria.
+ * @throws Error when the HTTP response is not OK or when the API responds with `success: false` (error message from the API).
+ */
 async function fetcher(params: UseRecipesParams): Promise<RecipeFilteredData[]> {
   const searchParams = new URLSearchParams({
     soup: params.isSoupIncluded.toString(),
@@ -67,13 +63,9 @@ async function fetcher(params: UseRecipesParams): Promise<RecipeFilteredData[]> 
 }
 
 /**
- * 레시피 Store에서 현재 검색어와 필터를 적용한 목록을 반환하는 Hook
+ * Return the store's recipes filtered by the current search query and filter criteria.
  *
- * @returns 필터링된 레시피 목록
- * @example
- * ```tsx
- * const filteredRecipes = useFilteredRecipes();
- * ```
+ * @returns An array of recipes filtered according to the store's `searchQuery` and `filter`
  */
 export function useFilteredRecipes() {
   const recipes = useRecipeStore(state => state.recipes);

@@ -1,7 +1,8 @@
 /**
- * 문자열 정규화 띄어쓰기 제거 + 소문자 변환
- * @param str 원본 문자열
- * @returns 정규화된 문자열
+ * Normalize a string by removing all whitespace and converting letters to lowercase.
+ *
+ * @param str - The input string to normalize
+ * @returns The input with all whitespace removed and characters converted to lowercase
  *
  * @example
  * ```ts

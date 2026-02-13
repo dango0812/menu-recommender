@@ -6,6 +6,14 @@ interface EmptyContentProps {
   description?: string;
 }
 
+/**
+ * Renders a centered empty-state UI with an animation, title, and optional description.
+ *
+ * @param height - Minimum container height in pixels (defaults to 260)
+ * @param title - Primary title text displayed below the animation
+ * @param description - Optional secondary text displayed under the title; preserves line breaks
+ * @returns The rendered JSX element for the empty-state layout
+ */
 export function EmptyContent({ height = 260, title, description }: EmptyContentProps) {
   return (
     <Flex

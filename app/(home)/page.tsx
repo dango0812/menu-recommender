@@ -2,6 +2,11 @@ import { Card, Flex, Text } from '@/components/base';
 
 import { MenuRecommender } from './_components/MenuRecommender';
 
+/**
+ * Render the home page showing a centered title, a subtitle, and the MenuRecommender inside a styled card.
+ *
+ * @returns The page's JSX element containing header text and a Card with the MenuRecommender component.
+ */
 export default function HomePage() {
   return (
     <div className="px-5 pt-5 pb-6 sm:px-6 sm:pt-10">

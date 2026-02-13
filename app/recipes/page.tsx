@@ -6,6 +6,14 @@ import { RecipeFilter, RecipeList, RecipeSearch } from './_components';
 
 export const dynamic = 'force-static';
 
+/**
+ * Render the recipes page and provide fetched recipes to the store provider.
+ *
+ * Fetches all recipes and initializes `RecipeStoreProvider` with them, then renders
+ * the filter, search, and list UI inside a column Flex layout.
+ *
+ * @returns A React element that renders the recipes page populated with fetched recipes.
+ */
 export default async function RecipePage() {
   const recipes = await fetchAllRecipes();
 
