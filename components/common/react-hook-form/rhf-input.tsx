@@ -4,9 +4,7 @@ import { type ReactNode } from 'react';
 
 import { Controller, type FieldPath, type FieldValues, useFormContext } from 'react-hook-form';
 
-import { Flex } from '@/components/ui';
-import { Input } from '@/components/ui/Input';
-import { Text } from '@/components/ui/Text';
+import { Flex, Input, Text } from '@/components/ui';
 import { cn } from '@/lib/tailwind-merge';
 
 import { FormHelperText } from '../form-helper-text';

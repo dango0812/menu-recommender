@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import type { PropsWithChildren } from 'react';
 
-import MotionProvider from '@/providers/motion/MotionProvider';
+import MotionProvider from '@/providers/motion/motion-provider';
 import { QueryProvider } from '@/providers/query';
 
 import './globals.css';
