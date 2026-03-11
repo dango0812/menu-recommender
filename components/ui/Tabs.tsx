@@ -12,7 +12,7 @@ const tabItemVariants = cva(
     variants: {
       selected: {
         true: 'bg-white text-primary shadow-sm',
-        false: 'bg-transparent text-tab-unselected',
+        false: 'text-tab-unselected bg-transparent',
       },
       disabled: {
         true: 'cursor-not-allowed opacity-50',
@@ -90,7 +90,7 @@ function Tab({ children, value, onChange, fullWidth = false, className }: TabPro
         role="tablist"
         aria-label="탭 목록"
         className={cn(
-          'flex rounded-full bg-tab p-1.5',
+          'bg-tab flex rounded-full p-1.5',
           {
             'w-full': fullWidth,
             'w-fit': !fullWidth,

@@ -9,9 +9,9 @@ import './globals.css';
 
 const notoSansKR = Noto_Sans_KR({
   variable: '--font-notosans',
-  weight: ['100', '300', '400', '500', '600', '700', '900'],
+  weight: ['400', '500', '700'],
   subsets: ['latin'],
-  preload: false,
+  display: 'swap',
 });
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -22,8 +22,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="ko">
-      <body className={`${notoSansKR.variable} ${notoSansKR.className}`}>
+    <html lang="ko" className={notoSansKR.variable}>
+      <body>
         <QueryProvider>
           <MotionProvider>{children}</MotionProvider>
         </QueryProvider>

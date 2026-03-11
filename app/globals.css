@@ -15,11 +15,9 @@
 
   /* Colors */
   --color-primary: #f47b25;
-  --color-primary-foreground: #ffffff;
   --color-success: #22c55e;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
-  --color-inactive: #9ca3af;
   --color-tab: #ede0d4;
   --color-tab-unselected: #9c6c49;
 
@@ -40,12 +38,10 @@
 }
 
 @layer base {
-  html {
-    @apply overscroll-y-none;
-    -webkit-overflow-scrolling: touch;
-  }
   body {
-    @apply bg-(--external-background);
+    @apply font-sans text-base antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   input::-webkit-search-decoration,
@@ -53,16 +49,5 @@
   input::-webkit-search-results-button,
   input::-webkit-search-results-decoration {
     display: none;
-  }
-}
-
-@layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .no-scrollbar {
-    -ms-overflow-style: none; /* IE & Edge */
-    scrollbar-width: none; /* Firefox */
   }
 }

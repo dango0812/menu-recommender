@@ -1,4 +1,4 @@
-import { Flex, Lottie, Text } from '@/components/base';
+import { Flex, Lottie, Text } from '@/components/ui';
 
 interface EmptyContentProps {
   height?: number;
