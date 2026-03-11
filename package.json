@@ -11,6 +11,7 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "prepare": "husky",
+    "prisma:studio": "prisma studio",
     "prisma:generate": "prisma generate"
   },
   "lint-staged": {
@@ -32,6 +33,7 @@
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "crypto": "^1.0.1",
     "dotenv": "^17.3.1",
     "framer-motion": "^12.34.0",
     "lottie-web": "^5.13.0",
@@ -43,6 +45,8 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.71.2",
+    "resend": "^6.9.3",
+    "server-only": "^0.0.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18",
