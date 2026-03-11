@@ -18,6 +18,8 @@
   --color-success: #22c55e;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
+  --color-tab: #ede0d4;
+  --color-tab-unselected: #9c6c49;
 
   /* Font Sizes */
   --font-size-xs: 0.6875rem; /* 11px */

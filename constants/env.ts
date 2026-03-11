@@ -6,7 +6,7 @@ export const env = createEnv({
     DATABASE_URL: z.url(),
     POSTGRES_URL: z.url(),
     PRISMA_DATABASE_URL: z.url(),
-    AUTH_SECRET: z.string().min(60),
+    AUTH_SECRET: z.string().min(32),
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.url().default('http://localhost:3000'),
