@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import type { PropsWithChildren } from 'react';
+import { Toaster } from 'sonner';
 
 import MotionProvider from '@/providers/motion/motion-provider';
 import { QueryProvider } from '@/providers/query';
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <QueryProvider>
           <MotionProvider>{children}</MotionProvider>
         </QueryProvider>
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );
