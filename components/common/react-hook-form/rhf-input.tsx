@@ -43,12 +43,7 @@ export function RHFInput<T extends FieldValues>({
   fullWidth,
   ...props
 }: RHFInputProps<T>) {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext<T>();
-
-  const error = errors[name];
+  const { control } = useFormContext<T>();
 
   return (
     <Flex direction="column" className="gap-1.5">
@@ -61,18 +56,20 @@ export function RHFInput<T extends FieldValues>({
       <Controller
         name={name}
         control={control}
-        render={({ field }) => (
-          <Input
-            {...field}
-            fullWidth={fullWidth}
-            startDecorator={startDecorator}
-            endDecorator={endDecorator}
-            className={cn(error && 'border-error', className)}
-            {...props}
-          />
+        render={({ field, fieldState: { error } }) => (
+          <>
+            <Input
+              {...field}
+              fullWidth={fullWidth}
+              startDecorator={startDecorator}
+              endDecorator={endDecorator}
+              className={cn(error && 'border-error focus:border-error', className)}
+              {...props}
+            />
+            {error && <FormHelperText>{error.message}</FormHelperText>}
+          </>
         )}
       />
-      {error && <FormHelperText>{error.message as string}</FormHelperText>}
     </Flex>
   );
 }
