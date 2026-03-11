@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 import { cn } from '@/lib/tailwind-merge';
 
-import { Flex } from '../ui';
+import { Flex, Text } from '../ui';
 
 interface SimpleHeaderProps {
   className?: string;
@@ -23,7 +23,15 @@ export function SimpleHeader({ className, rightContent }: SimpleHeaderProps) {
   return (
     <header className={cn('h-15 w-full border-b border-slate-300 bg-background px-5', className)}>
       <Flex alignItems="center" justifyContent="space-between" className="h-full">
-        <div>Logo</div>
+        {/* 로고 이미지로 대체 */}
+        <Flex alignItems="center">
+          <Text as="span" className="text-xl font-bold text-primary">
+            와구
+          </Text>
+          <Text as="span" className="text-xl font-bold text-black">
+            와규
+          </Text>
+        </Flex>
 
         {rightContent}
       </Flex>
