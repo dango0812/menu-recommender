@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import type { PropsWithChildren } from 'react';
 
-import Layout from '@/components/layout/Layout';
 import MotionProvider from '@/providers/motion/MotionProvider';
 import { QueryProvider } from '@/providers/query';
 
@@ -26,9 +25,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="ko">
       <body className={`${notoSansKR.variable} ${notoSansKR.className}`}>
         <QueryProvider>
-          <MotionProvider>
-            <Layout>{children}</Layout>
-          </MotionProvider>
+          <MotionProvider>{children}</MotionProvider>
         </QueryProvider>
       </body>
     </html>
