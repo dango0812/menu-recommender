@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { ROUTES } from '@/constants/routes';
@@ -11,8 +12,10 @@ export async function GET(req: NextRequest) {
       return NextResponse.redirect(new URL(`${ROUTES.AUTH.SIGN_IN}?error=invalid`, req.url));
     }
 
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+    // 토큰 조회
     const verificationToken = await prisma.emailVerificationToken.findUnique({
-      where: { token },
+      where: { token: hashedToken },
     });
 
     // 토큰 없음
@@ -22,7 +25,7 @@ export async function GET(req: NextRequest) {
 
     // 토큰 만료
     if (verificationToken.expires_at < new Date()) {
-      await prisma.emailVerificationToken.delete({ where: { token } });
+      await prisma.emailVerificationToken.delete({ where: { token: hashedToken } });
       return NextResponse.redirect(new URL(`${ROUTES.AUTH.SIGN_IN}?error=expired`, req.url));
     }
 
@@ -32,7 +35,7 @@ export async function GET(req: NextRequest) {
         where: { id: verificationToken.userId },
         data: { emailVerified: new Date() },
       }),
-      prisma.emailVerificationToken.delete({ where: { token } }),
+      prisma.emailVerificationToken.delete({ where: { token: hashedToken } }),
     ]);
 
     return NextResponse.redirect(new URL(`${ROUTES.AUTH.SIGN_IN}?verified=true`, req.url));

@@ -31,6 +31,7 @@ export async function signUpAction(data: { name: string; email: string; password
     const hashedPassword = await hash(password, 10);
     // 이메일 토큰, 만료기간
     const token = crypto.randomBytes(32).toString('hex');
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
     const expiresAt = new Date(Date.now() + 1000 * 60 * 60); // 1시간
 
     const user = await prisma.$transaction(async tx => {
@@ -46,7 +47,7 @@ export async function signUpAction(data: { name: string; email: string; password
       await tx.emailVerificationToken.create({
         data: {
           userId: newUser.id,
-          token,
+          token: hashedToken,
           expires_at: expiresAt,
         },
       });
