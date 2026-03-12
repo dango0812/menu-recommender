@@ -12,7 +12,8 @@
     "format:fix": "prettier --write .",
     "prepare": "husky",
     "prisma:studio": "prisma studio",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "seed:test-user": "tsx prisma/tools/seed-test-user.ts"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -78,6 +79,7 @@
     "prettier-plugin-merge": "^0.9.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "prisma": "^7.4.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.55.0"
   }
