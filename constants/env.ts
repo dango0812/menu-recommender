@@ -8,6 +8,7 @@ export const env = createEnv({
     PRISMA_DATABASE_URL: z.url(),
     AUTH_SECRET: z.string().min(32),
     RESEND_API_KEY: z.string(),
+    RESEND_FROM_EMAIL: z.email(),
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.url().default('http://localhost:3000'),
@@ -19,5 +20,6 @@ export const env = createEnv({
     PRISMA_DATABASE_URL: process.env.PRISMA_DATABASE_URL,
     AUTH_SECRET: process.env.AUTH_SECRET,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL,
   },
 });
