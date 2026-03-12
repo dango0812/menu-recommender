@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { type PropsWithChildren, useState } from 'react';
 
 import { Bike, ChefHat, Sparkles } from 'lucide-react';
 
@@ -42,7 +42,11 @@ export function MenuRecommender() {
         ))}
       </Tab>
 
-      <div className="p-6">{TAB_CONTENT[tab]}</div>
+      <TabView>{TAB_CONTENT[tab]}</TabView>
     </Card>
   );
+}
+
+function TabView({ children }: PropsWithChildren) {
+  return <div className="p-5">{children}</div>;
 }
