@@ -15,6 +15,7 @@ import { signUpAction } from './action';
 
 export function SignUpForm() {
   const router = useRouter();
+
   const form = useForm<SignUpFormSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -23,6 +24,8 @@ export function SignUpForm() {
       password: '',
     },
   });
+
+  const { isSubmitting } = form.formState;
 
   const onSubmit = async (data: SignUpFormSchema) => {
     const result = await signUpAction(data);
@@ -61,7 +64,7 @@ export function SignUpForm() {
         fullWidth
         startDecorator={<Lock size={16} />}
       />
-      <Button type="submit" fullWidth loading={form.formState.isSubmitting} className="mt-2">
+      <Button type="submit" fullWidth loading={isSubmitting} className="mt-2">
         회원가입
       </Button>
     </RHFFormProvider>
