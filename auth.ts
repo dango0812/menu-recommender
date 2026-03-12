@@ -21,12 +21,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           where: { email: credentials.email as string },
         });
 
-        if (!user) {
-          throw new Error('등록되지 않은 계정이에요.');
-        }
-
-        if (!user.password) {
-          throw new Error('소셜 로그인으로 가입된 계정이에요.');
+        // 계정 존재를 유추할 수 없도록 같은 에러 반환
+        if (!user || !user.password) {
+          throw new Error('이메일 또는 비밀번호를 확인해 주세요.');
         }
 
         const isCorrectPassword = await compare(credentials.password as string, user.password);

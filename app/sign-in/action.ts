@@ -3,14 +3,14 @@
 import { AuthError } from 'next-auth';
 
 import { signIn } from '@/auth';
-import { signInSchema } from '@/constants/schemas';
+import { type SignInFormSchema, signInSchema } from '@/constants/schemas';
 
 interface SignInResult {
   success?: boolean;
   error?: string;
 }
 
-export async function signInAction(data: { email: string; password: string }): Promise<SignInResult> {
+export async function signInAction(data: SignInFormSchema): Promise<SignInResult> {
   // 서버 사이드 형식 검사
   const validatedFields = signInSchema.safeParse(data);
   if (!validatedFields.success) {
