@@ -7,7 +7,8 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/tailwind-merge';
 
 const tabItemVariants = cva(
-  'mb-[-1px] flex-1 border-b-2 py-3.5 text-center text-sm font-medium whitespace-nowrap transition-all duration-200',
+  `mb-[-1px] inline-flex flex-1 items-center justify-center gap-1.5 border-b-2 py-3.5 text-center text-sm font-medium
+  whitespace-nowrap transition-all duration-200`,
   {
     variants: {
       selected: {
