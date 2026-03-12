@@ -1,8 +1,11 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+import { ROUTES } from '@/constants/routes';
 import { cn } from '@/lib/tailwind-merge';
 
-import { Flex, Text } from '../ui';
+import { Flex } from '../ui';
 
 interface SimpleHeaderProps {
   className?: string;
@@ -23,15 +26,9 @@ export function SimpleHeader({ className, rightContent }: SimpleHeaderProps) {
   return (
     <header className={cn('h-15 w-full border-b border-slate-300 bg-background px-5', className)}>
       <Flex alignItems="center" justifyContent="space-between" className="h-full">
-        {/* 로고 이미지로 대체 */}
-        <Flex alignItems="center">
-          <Text as="span" className="text-xl font-bold text-primary">
-            와구
-          </Text>
-          <Text as="span" className="text-xl font-bold text-black">
-            와규
-          </Text>
-        </Flex>
+        <Link href={ROUTES.HOME} className="flex items-center">
+          <Image src="/logo.svg" alt="와구와규 로고" width={140} height={40} priority />
+        </Link>
 
         {rightContent}
       </Flex>
