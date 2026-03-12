@@ -7,12 +7,12 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/tailwind-merge';
 
 const tabItemVariants = cva(
-  'relative flex-shrink-0 rounded-full px-8 py-3 text-sm font-medium whitespace-nowrap transition-all duration-200',
+  'mb-[-1px] flex-1 border-b-2 py-3.5 text-center text-sm font-medium whitespace-nowrap transition-all duration-200',
   {
     variants: {
       selected: {
-        true: 'bg-white text-primary shadow-sm',
-        false: 'bg-transparent text-tab-unselected',
+        true: 'border-primary text-primary',
+        false: 'border-transparent text-slate-400',
       },
       disabled: {
         true: 'cursor-not-allowed opacity-50',
@@ -29,7 +29,6 @@ const tabItemVariants = cva(
 interface TabContextValue {
   value: string;
   onChange: (value: string) => void;
-  fullWidth: boolean;
 }
 
 const TabContext = createContext<TabContextValue | null>(null);
@@ -49,8 +48,19 @@ interface TabItemProps {
   className?: string;
 }
 
+/**
+ * Tab.Item 컴포넌트
+ *
+ * `Tab` 컴포넌트 내부에서만 사용할 수 있는 탭 아이템
+ *
+ * @example
+ * ```tsx
+ * <Tab.Item value="first">첫 번째</Tab.Item>
+ * <Tab.Item value="second" disabled>두 번째 (비활성화)</Tab.Item>
+ * ```
+ */
 function TabItem({ children, value, disabled = false, className }: TabItemProps) {
-  const { value: selectedValue, onChange, fullWidth } = useTabContext();
+  const { value: selectedValue, onChange } = useTabContext();
   const selected = value === selectedValue;
 
   const handleClick = useCallback(() => {
@@ -68,7 +78,7 @@ function TabItem({ children, value, disabled = false, className }: TabItemProps)
       tabIndex={selected ? 0 : -1}
       disabled={disabled}
       onClick={handleClick}
-      className={cn(tabItemVariants({ selected, disabled }), { 'flex-1': fullWidth }, className)}
+      className={cn(tabItemVariants({ selected, disabled }), className)}
     >
       {children}
     </button>
@@ -79,25 +89,27 @@ interface TabProps {
   children: React.ReactNode;
   value: string;
   onChange: (value: string) => void;
-  fullWidth?: boolean;
   className?: string;
 }
 
-function Tab({ children, value, onChange, fullWidth = false, className }: TabProps) {
+/**
+ * Tab 컴포넌트
+ *
+ * @example
+ * ```tsx
+ * const [tab, setTab] = useState('first');
+ *
+ * <Tab value={tab} onChange={setTab}>
+ *   <Tab.Item value="first">첫 번째</Tab.Item>
+ *   <Tab.Item value="second">두 번째</Tab.Item>
+ *   <Tab.Item value="third" disabled>세 번째</Tab.Item>
+ * </Tab>
+ * ```
+ */
+function Tab({ children, value, onChange, className }: TabProps) {
   return (
-    <TabContext.Provider value={{ value, onChange, fullWidth }}>
-      <div
-        role="tablist"
-        aria-label="탭 목록"
-        className={cn(
-          'flex rounded-full bg-tab p-1.5',
-          {
-            'w-full': fullWidth,
-            'w-fit': !fullWidth,
-          },
-          className
-        )}
-      >
+    <TabContext.Provider value={{ value, onChange }}>
+      <div role="tablist" aria-label="탭 목록" className={cn('flex w-full border-b border-gray-200', className)}>
         {children}
       </div>
     </TabContext.Provider>

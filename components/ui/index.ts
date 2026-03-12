@@ -6,5 +6,5 @@ export { Input } from './input';
 export { Lottie } from './lottie';
 export { NumericSpinner } from './numeric-spinner';
 export { Switch } from './switch';
-export { default as Tab } from './tabs';
+export { default as Tab } from './tab';
 export { Text } from './text';
