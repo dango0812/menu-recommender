@@ -21,18 +21,18 @@ export async function GET(req: NextRequest) {
 
   // 토큰 만료
   if (verificationToken.expires_at < new Date()) {
-    await prisma.emailVerificationToken.deleteMany({ where: { token } });
+    await prisma.emailVerificationToken.delete({ where: { token } });
     return NextResponse.redirect(new URL(`${ROUTES.AUTH.SIGN_IN}?error=expired`, req.url));
   }
 
-  // 이메일 확인 업데이트
-  await prisma.user.update({
-    where: { id: verificationToken.userId },
-    data: { emailVerified: new Date() },
-  });
-
-  // 이메일 확인 토큰 삭제
-  await prisma.emailVerificationToken.deleteMany({ where: { token } });
+  // 이메일 확인 업데이트 및 토큰 삭제 (트랜잭션)
+  await prisma.$transaction([
+    prisma.user.update({
+      where: { id: verificationToken.userId },
+      data: { emailVerified: new Date() },
+    }),
+    prisma.emailVerificationToken.delete({ where: { token } }),
+  ]);
 
   return NextResponse.redirect(new URL(`${ROUTES.AUTH.SIGN_IN}?verified=true`, req.url));
 }

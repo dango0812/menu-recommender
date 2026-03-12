@@ -1,13 +1,14 @@
 'use server';
 
+import { Prisma } from '@prisma/client';
 import { hash } from 'bcryptjs';
 import crypto from 'crypto';
 import { Resend } from 'resend';
 
-import { verificationEmail } from '@/components/template/sign-up-verification';
 import { env } from '@/constants/env';
 import { signUpSchema } from '@/constants/schemas';
 import prisma from '@/lib/prisma';
+import { verificationEmail } from '@/mail-template/sign-up-verification';
 
 interface SignUpResult {
   success?: boolean;
@@ -16,7 +17,7 @@ interface SignUpResult {
 
 const resend = new Resend(env.RESEND_API_KEY);
 
-export async function SignUpAction(data: { name: string; email: string; password: string }): Promise<SignUpResult> {
+export async function signUpAction(data: { name: string; email: string; password: string }): Promise<SignUpResult> {
   // 서버 사이드 형식 검사
   const validatedFields = signUpSchema.safeParse(data);
   if (!validatedFields.success) {
@@ -26,16 +27,9 @@ export async function SignUpAction(data: { name: string; email: string; password
   const { email, password, name } = validatedFields.data;
 
   try {
-    // 이메일 중복 검사
-    const emailExists = await prisma.user.findUnique({ where: { email } });
-    if (emailExists) {
-      return { error: '이미 사용 중인 이메일이에요.' };
-    }
-
     // 비밀번호 hash salt 후 사용자 생성
     const hashedPassword = await hash(password, 10);
     const user = await prisma.user.create({
-      // 👈 const user 로 받아야 함
       data: {
         email,
         name,
@@ -65,7 +59,7 @@ export async function SignUpAction(data: { name: string; email: string; password
 
     // 인증 메일 발송
     await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: env.RESEND_FROM_EMAIL,
       to: email,
       subject: '[와구와규] 이메일 인증을 완료해 주세요',
       html: verificationEmail({
@@ -76,7 +70,12 @@ export async function SignUpAction(data: { name: string; email: string; password
 
     return { success: true };
   } catch (e) {
-    console.log('@error', e);
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      if (e.code === 'P2002') {
+        return { error: '이미 사용 중인 이메일이에요.' };
+      }
+    }
+
     return { error: '회원가입 중 오류가 발생했어요.' };
   }
 }

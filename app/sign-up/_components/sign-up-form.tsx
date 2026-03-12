@@ -10,7 +10,7 @@ import { RHFFormProvider, RHFInput } from '@/components/common/react-hook-form';
 import { Button } from '@/components/ui/button';
 import { ROUTES } from '@/constants/routes';
 import { type SignUpFormSchema, signUpSchema } from '@/constants/schemas';
-import { SignUpAction } from '@/services/sign-up-action';
+import { signUpAction } from '@/services/sign-up-action';
 
 export function SignUpForm() {
   const router = useRouter();
@@ -24,14 +24,14 @@ export function SignUpForm() {
   });
 
   const onSubmit = async (data: SignUpFormSchema) => {
-    const result = await SignUpAction(data);
+    const result = await signUpAction(data);
     if (!result.success) {
       toast.error(result.error);
       return;
     }
 
-    router.push(`${ROUTES.AUTH.VERIFY_EMAIL}?email=${encodeURIComponent(data.email)}`);
     toast.success('이메일 확인 메일이 발송됐어요');
+    router.push(`${ROUTES.AUTH.VERIFY_EMAIL}?email=${encodeURIComponent(data.email)}`);
   };
 
   return (
@@ -56,7 +56,7 @@ export function SignUpForm() {
         name="password"
         type="password"
         placeholder="비밀번호"
-        autoComplete="current-password"
+        autoComplete="new-password"
         fullWidth
         startDecorator={<Lock size={16} />}
       />
