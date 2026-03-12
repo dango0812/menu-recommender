@@ -15,10 +15,16 @@ export const nameSchema = z
   .min(1, { message: '이름을 입력해 주세요' })
   .min(2, { message: '이름은 2자 이상 입력해야 해요' });
 
+export const signInSchema = z.object({
+  email: emailSchema,
+  password: passwordSchema,
+});
+
 export const signUpSchema = z.object({
   name: nameSchema,
   email: emailSchema,
   password: passwordSchema,
 });
 
+export type SignInFormSchema = z.infer<typeof signInSchema>;
 export type SignUpFormSchema = z.infer<typeof signUpSchema>;

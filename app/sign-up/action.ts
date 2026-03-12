@@ -6,7 +6,7 @@ import crypto from 'crypto';
 import { Resend } from 'resend';
 
 import { env } from '@/constants/env';
-import { signUpSchema } from '@/constants/schemas';
+import { type SignUpFormSchema, signUpSchema } from '@/constants/schemas';
 import prisma from '@/lib/prisma';
 import { verificationEmail } from '@/mail-template/sign-up-verification';
 
@@ -17,7 +17,7 @@ interface SignUpResult {
 
 const resend = new Resend(env.RESEND_API_KEY);
 
-export async function signUpAction(data: { name: string; email: string; password: string }): Promise<SignUpResult> {
+export async function signUpAction(data: SignUpFormSchema): Promise<SignUpResult> {
   // 서버 사이드 형식 검사
   const validatedFields = signUpSchema.safeParse(data);
   if (!validatedFields.success) {
@@ -78,6 +78,6 @@ export async function signUpAction(data: { name: string; email: string; password
       }
     }
 
-    return { error: '회원가입 중 오류가 발생했어요.' };
+    return { error: '회원가입 중 문제가 발생했어요.' };
   }
 }
