@@ -40,6 +40,25 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+}
+
+@layer components {
+  .ui-slider {
+    @apply h-2 cursor-pointer appearance-none rounded-full outline-none;
+    background-color: color-mix(in srgb, var(--color-primary) 20%, white);
+  }
+
+  .ui-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    @apply h-5 w-5 cursor-pointer rounded-full;
+    background-color: var(--color-primary);
+  }
+
+  .ui-slider::-moz-range-thumb {
+    @apply h-5 w-5 cursor-pointer rounded-full border-none;
+    background-color: var(--color-primary);
+  }
 
   input::-webkit-search-decoration,
   input::-webkit-search-cancel-button,

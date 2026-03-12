@@ -5,6 +5,7 @@ export { Flex } from './flex';
 export { Input } from './input';
 export { Lottie } from './lottie';
 export { NumericSpinner } from './numeric-spinner';
+export { Slider } from './slider';
 export { Switch } from './switch';
 export { default as Tab } from './tab';
 export { Text } from './text';
