@@ -78,6 +78,6 @@ export async function signUpAction(data: { name: string; email: string; password
       }
     }
 
-    return { error: '회원가입 중 오류가 발생했어요.' };
+    return { error: '회원가입 중 문제가 발생했어요.' };
   }
 }
