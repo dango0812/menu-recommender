@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/tailwind-merge';
 
-const spinnerContainer = cva('inline-flex items-center gap-3 rounded-full bg-(--bg-spinner) p-1 shadow-sm', {
+const spinnerContainer = cva('inline-flex items-center gap-3 rounded-full bg-spinner p-1 shadow-sm', {
   variants: {
     fullWidth: {
       true: 'w-full justify-between',

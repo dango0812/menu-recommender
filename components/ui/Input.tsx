@@ -8,7 +8,7 @@ import { cn } from '@/lib/tailwind-merge';
 
 const inputVariants = cva(
   `rounded-2xl border border-gray-200 bg-white py-3.5 pr-4 pl-10 text-sm placeholder-gray-400 shadow-sm transition-all
-  duration-200 focus:border-primary focus:ring-0 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100
+  duration-200 focus:border-gray-300 focus:ring-0 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100
   disabled:text-gray-500`,
   {
     variants: {

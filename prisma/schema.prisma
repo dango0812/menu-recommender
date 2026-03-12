@@ -11,9 +11,11 @@ model User {
   name          String?
   email         String    @unique
   emailVerified DateTime? @map("email_verified")
+  password      String?
   profile       String?
   accounts      Account[]
   sessions      Session[]
+  emailVerificationTokens EmailVerificationToken[]
   role          String?   @default("USER")
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
@@ -54,11 +56,14 @@ model Session {
   @@map("sessions")
 }
 
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
+model EmailVerificationToken {
+  id         String   @id @default(cuid())
+  userId     String   @map("user_id")
+  token      String   @unique
+  expires_at DateTime @map("expires_at")
 
-  @@id([identifier, token])
-  @@map("verification_tokens")
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("email_verification_tokens")
 }

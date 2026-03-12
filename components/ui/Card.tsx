@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/tailwind-merge';
 
-const cardVariants = cva('border border-(--border-card) bg-white p-5 shadow-sm', {
+const cardVariants = cva('border border-gray-200 bg-white p-5 shadow-sm', {
   variants: {
     round: {
       sm: 'rounded-xl',
