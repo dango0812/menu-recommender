@@ -1,3 +1,5 @@
+import { escapeHTML } from '@/utils';
+
 interface VerificationEmailProps {
   name: string;
   verificationUrl: string;
@@ -24,7 +26,7 @@ export function verificationEmail({ name, verificationUrl }: VerificationEmailPr
                   </div>
 
                   <h2 style="margin:0 0 16px 0; font-size:22px; color:#111111; font-weight:700; line-height:1.4;">
-                    환영합니다, ${name}님!
+                    환영합니다, ${escapeHTML(name)}님!
                   </h2>
                   <p style="margin:0 0 40px 0; font-size:15px; color:#666666; line-height:1.6;">
                     와구와규 서비스를 시작하기 위해<br/>
