@@ -9,3 +9,4 @@ export { Slider } from './slider';
 export { Switch } from './switch';
 export { default as Tab } from './tab';
 export { Text } from './text';
+export { Textarea } from './textarea';
