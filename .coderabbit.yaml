@@ -115,7 +115,7 @@ reviews:
         - Prisma 쿼리 시 select/include로 필요한 필드만 조회
         - Tanstack Query의 staleTime, gcTime 적절히 설정하여 불필요한 리페치 방지
 
-        ## 10. 기타 가이드라인
+        ## 9. 기타 가이드라인
         - 충분한 근거와 함께 리뷰 제공
         - 정보 검증 후 답변
         - 간결하고 명확한 응답
