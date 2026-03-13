@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext } from 'react';
 
 import { cva } from 'class-variance-authority';
 
-import { cn } from '@/lib/tailwind-merge';
+import { cn } from '@/lib/tailwind';
 
 const tabItemVariants = cva(
   `mb-[-1px] inline-flex flex-1 items-center justify-center gap-1.5 border-b-2 py-3.5 text-center text-sm font-medium

@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/lib/tailwind-merge';
+import { cn } from '@/lib/tailwind';
 
 const cardVariants = cva('border border-gray-200 bg-white p-5 shadow-sm', {
   variants: {

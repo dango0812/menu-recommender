@@ -1,11 +1,17 @@
 'use client';
 
-import { type ReactNode } from 'react';
+import { type ChangeEvent, type ReactNode } from 'react';
 
-import { Controller, type FieldPath, type FieldValues, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  type ControllerRenderProps,
+  type FieldPath,
+  type FieldValues,
+  useFormContext,
+} from 'react-hook-form';
 
 import { Flex, Input, Text } from '@/components/ui';
-import { cn } from '@/lib/tailwind-merge';
+import { cn } from '@/lib/tailwind';
 
 import { FormHelperText } from '../form-helper-text';
 
@@ -41,9 +47,19 @@ export function RHFInput<T extends FieldValues>({
   startDecorator,
   endDecorator,
   fullWidth,
+  type,
   ...props
 }: RHFInputProps<T>) {
   const { control } = useFormContext<T>();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>, field: ControllerRenderProps<T>) => {
+    if (type !== 'number') {
+      return field.onChange(e.target.value);
+    }
+
+    const numberValue = e.target.valueAsNumber;
+    field.onChange(Number.isNaN(numberValue) ? undefined : numberValue);
+  };
 
   return (
     <Flex direction="column" className="gap-1.5">
@@ -60,6 +76,9 @@ export function RHFInput<T extends FieldValues>({
           <>
             <Input
               {...field}
+              type={type}
+              value={field.value ?? ''}
+              onChange={e => handleChange(e, field)}
               fullWidth={fullWidth}
               startDecorator={startDecorator}
               endDecorator={endDecorator}

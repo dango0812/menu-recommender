@@ -4,7 +4,7 @@ import { type InputHTMLAttributes, type ReactNode, type Ref } from 'react';
 
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/lib/tailwind-merge';
+import { cn } from '@/lib/tailwind';
 
 const inputVariants = cva(
   `rounded-2xl border border-gray-200 bg-white py-3.5 pr-4 pl-10 text-sm placeholder-gray-400 shadow-sm transition-all
@@ -42,7 +42,11 @@ type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> &
  */
 export function Input({ ref, className, startDecorator, endDecorator, fullWidth, ...props }: InputProps) {
   return (
-    <div className={cn('relative inline-flex items-center', fullWidth && 'w-full')}>
+    <div
+      className={cn('relative inline-flex w-fit items-center', {
+        'w-full': fullWidth,
+      })}
+    >
       {startDecorator && (
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-current">
           {startDecorator}

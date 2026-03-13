@@ -2,7 +2,7 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/lib/tailwind-merge';
+import { cn } from '@/lib/tailwind';
 
 const switchTrack = cva(
   `inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors

@@ -2,7 +2,7 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/lib/tailwind-merge';
+import { cn } from '@/lib/tailwind';
 
 const spinnerContainer = cva('inline-flex items-center gap-3 rounded-full bg-primary-light p-1 shadow-sm', {
   variants: {
