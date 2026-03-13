@@ -29,11 +29,19 @@ export const recipePostSchema = z.object({
       })
     )
     .min(1, '양념을 1개 이상 추가해 주세요'),
-  instructions: z
+  cookingSteps: z
     .array(
       z.object({
+        image: z
+          .instanceof(File)
+          .refine(file => file.size <= MAX_COVER_IMAGE_SIZE, '이미지 크기는 5MB 이하여야 해요')
+          .refine(
+            file => (ACCEPTED_IMAGE_TYPES as readonly string[]).includes(file.type),
+            'JPG, PNG, HEIC, WebP 형식만 업로드할 수 있어요'
+          )
+          .optional(),
         description: z.string().min(1, '조리 설명을 입력해 주세요'),
-        subDescription: z.string().optional(),
+        caption: z.string().optional(),
       })
     )
     .min(1, '조리 순서를 1단계 이상 추가해 주세요'),

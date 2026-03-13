@@ -19,4 +19,4 @@ export const FILE_REJECTION_MESSAGES: Record<string, string> = {
   'file-too-small': '유효하지 않은 파일이에요',
   'file-invalid-type': 'JPG, PNG, HEIC, WebP 형식만 업로드할 수 있어요',
   'too-many-files': '이미지는 1장만 업로드할 수 있어요',
-};
+} as const;
