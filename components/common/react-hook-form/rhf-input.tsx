@@ -63,7 +63,12 @@ export function RHFInput<T extends FieldValues>({
   };
 
   return (
-    <Flex direction="column" className="gap-1.5">
+    <Flex
+      direction="column"
+      className={cn('gap-1.5', {
+        'w-full': fullWidth,
+      })}
+    >
       {label && (
         <Text as="label" className="text-sm text-gray-700">
           {label}
@@ -83,7 +88,12 @@ export function RHFInput<T extends FieldValues>({
               fullWidth={fullWidth}
               startDecorator={startDecorator}
               endDecorator={endDecorator}
-              className={cn(error && 'border-error focus:border-error', className)}
+              className={cn(
+                {
+                  'border-error focus:border-error': error,
+                },
+                className
+              )}
               {...props}
             />
             {error && <FormHelperText>{error.message}</FormHelperText>}
