@@ -6,7 +6,7 @@ import crypto from 'crypto';
 import { Resend } from 'resend';
 
 import { env } from '@/constants/env';
-import { type SignUpFormSchema, signUpSchema } from '@/constants/schemas';
+import { type SignUpFormSchema, signUpSchema } from '@/constants/schemas/auth';
 import prisma from '@/lib/prisma';
 import { verificationEmail } from '@/mail-template/sign-up-verification';
 

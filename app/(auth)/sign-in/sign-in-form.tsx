@@ -9,7 +9,7 @@ import { FormHelperText } from '@/components/common/form-helper-text';
 import { RHFFormProvider, RHFInput } from '@/components/common/react-hook-form';
 import { Button } from '@/components/ui';
 import { ROUTES } from '@/constants/routes';
-import { type SignInFormSchema, signInSchema } from '@/constants/schemas';
+import { type SignInFormSchema, signInSchema } from '@/constants/schemas/auth';
 
 import { signInAction } from './action';
 

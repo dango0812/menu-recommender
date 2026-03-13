@@ -3,7 +3,7 @@
 import { AuthError } from 'next-auth';
 
 import { signIn } from '@/auth';
-import { type SignInFormSchema, signInSchema } from '@/constants/schemas';
+import { type SignInFormSchema, signInSchema } from '@/constants/schemas/auth';
 
 interface SignInResult {
   success?: boolean;
