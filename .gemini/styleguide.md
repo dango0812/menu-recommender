@@ -1,0 +1,147 @@
+# 프로젝트 스타일 가이드
+
+> **기술 스택**: Next.js 16 (App Router) · React 19 · TypeScript (strict) · Tailwind CSS v4 + CVA · react-hook-form + zod · Tanstack Query · Zustand · Prisma · pnpm
+
+---
+
+## 1. 포맷팅
+
+- **Prettier**가 코드 포맷팅을 전담하며, 아래 설정은 `.prettierrc` / `prettier.config.js`에 정의되어 자동 적용됩니다.
+  - 들여쓰기: 스페이스 2개
+  - 줄 길이: 120자
+  - 세미콜론: 사용 (`semi: true`)
+  - 따옴표: 작은따옴표 (`singleQuote: true`)
+  - 화살표 함수 괄호: 생략 가능 시 생략 (`arrowParens: 'avoid'`)
+  - 줄 끝: LF
+- Tailwind 클래스 정렬은 `prettier-plugin-tailwindcss`가 자동 처리합니다.
+
+## 2. 명명 규칙
+
+| 대상              | 규칙             | 예시                                          |
+| ----------------- | ---------------- | --------------------------------------------- |
+| 컴포넌트          | PascalCase       | `MenuRecommender`, `RecipePostForm`           |
+| 훅 · 유틸 · 함수  | camelCase        | `useBoolean`, `formatBudget`                  |
+| 변수              | camelCase        | `selectedCategory`, `ingredientFields`        |
+| 상수              | UPPER_SNAKE_CASE | `RECIPE_CATEGORY_OPTIONS`, `MAX_COOKING_TIME` |
+| 타입/인터페이스   | PascalCase       | `RecipePostFormSchema`                        |
+| 파일명 (컴포넌트) | kebab-case       | `recipe-post-form.tsx`, `rhf-input.tsx`       |
+
+## 3. Import 규칙
+
+- 외부 디렉토리 참조 시 `@/*` path alias(절대 경로) 사용
+- 동일 디렉토리 또는 하위 디렉토리 파일은 상대 경로 (`./`, `../`) 사용
+- `simple-import-sort` 플러그인에 의한 자동 정렬 준수
+- 디렉토리 단위 모듈은 `index.ts`를 통해 barrel export 사용 (단, 트리쉐이킹이 필요한 경우 직접 import 우선)
+
+## 4. 가독성 & 주석
+
+### 가독성
+
+- 매직 넘버/스트링 지양, 의미있는 상수 사용 (단, Tailwind 클래스 내 수치는 예외)
+- 함수는 하나의 책임만 가지도록 작성 (최대 20줄 권장)
+- 중첩 깊이 최소화 (3단계 이하 권장)
+- 조건부 렌더링 시 `&&` 대신 삼항 연산자 사용 (falsy 값 렌더링 방지)
+
+### 주석
+
+- 복잡한 로직이나 비즈니스 규칙에 대한 설명이 필요한 경우에만 주석 추가
+- 자명한 주석은 피하고, 코드 자체가 의도를 드러내도록 작성
+- `// TODO:`, `// FIXME:` 형식으로 사용하며, 가능한 경우 관련 이슈 번호 포함
+
+## 5. Next.js App Router
+
+### Server Component vs Client Component
+
+- 모든 `page.tsx`, `layout.tsx`는 기본적으로 Server Component로 작성
+- 상태 관리, 이벤트 처리, 브라우저 API 사용이 필요한 경우에만 파일 최상단에 `'use client'`를 선언하여 Client Component로 분리
+- Client Component의 크기를 최소화하고, 무거운 로직이나 데이터 페칭은 Server에서 처리 후 props로 전달
+- Server Component에서만 사용되는 모듈은 `server-only` 패키지로 보호
+
+### 데이터 페칭 및 Server Actions
+
+- 데이터 변형(Mutation)은 Server Actions (`'use server'`)를 통해 처리
+- 서버 데이터 페칭은 Server Component에서 직접 `async/await` 사용
+- 클라이언트 데이터 페칭 및 캐싱은 Tanstack Query 사용
+
+### 라우팅
+
+- Route Group (괄호 폴더)으로 레이아웃을 논리적으로 구분
+- `layout.tsx`에서 공통 레이아웃과 메타데이터 관리
+- `loading.tsx`, `error.tsx`, `not-found.tsx` 등 규약 파일 적극 활용
+
+## 6. React 19 & React Compiler
+
+### React Compiler
+
+- `babel-plugin-react-compiler`가 활성화되어 있으므로 수동 `memo`, `useCallback`, `useMemo` 사용 **불필요**
+- 수동 메모이제이션은 오히려 컴파일러 최적화를 방해할 수 있으므로 제거 권장
+
+### React 19
+
+- `forwardRef` 불필요, `ref`를 props로 직접 전달
+- `useActionState`, `useFormStatus` 등 React 19 내장 훅 활용
+- `use()` 훅으로 Promise/Context 소비 가능
+
+### 컴포넌트 작성
+
+- 컴포넌트는 단일 책임 원칙 준수
+- JSX 내에서 복잡한 로직 지양, 별도의 핸들러 함수로 분리
+- 렌더링마다 재생성되지 않아도 되는 정적 JSX나 상수는 컴포넌트 외부로 호이스팅
+- 무거운 클라이언트 컴포넌트는 `next/dynamic`으로 동적 import 처리
+
+## 7. 상태 관리
+
+- **전역 클라이언트 상태**: Zustand 사용 (스토어는 명확한 책임 단위로 분리)
+- **서버 상태** (캐싱/리페치): Tanstack Query 사용 (`useQuery`, `useMutation`, `staleTime`/`gcTime` 적절 설정)
+- **폼 상태**: react-hook-form + zod + zodResolver로 관리
+- **경량 원자 상태**: 필요 시 Jotai 도입 가능
+- 복잡한 상태 로직은 커스텀 훅으로 분리
+
+## 8. 에러 핸들링
+
+- **Error Boundary**: UI의 특정 부분에서 발생하는 에러가 전체 앱을 망가뜨리지 않도록 구현
+- **비동기 에러 처리**: `try-catch` 블록 또는 Tanstack Query의 `onError` 콜백 활용
+- **폼 에러**: `form.setError` / `form.clearErrors`로 서버 에러 핸들링
+
+## 9. 폼 & 유효성 검사 (react-hook-form + zod)
+
+- `zodResolver`를 통해 스키마 기반 유효성 검사 적용
+- `defaultValues`는 `useForm`에서 명시적으로 설정 (`z.default()`와 혼용 지양)
+- `Controller` 또는 RHF 래퍼 컴포넌트(`RHFInput` 등)를 사용하여 커스텀 UI와 연동
+- `useFieldArray`로 동적 필드 배열 관리
+
+## 10. 스타일링 (Tailwind CSS v4 + CVA)
+
+- 컴포넌트 변형(variants)은 `class-variance-authority`(CVA)로 관리
+- 클래스 충돌 해소는 `tailwind-merge`의 `cn()` 유틸 사용
+- `@theme` 블록에서 커스텀 토큰 정의 (`--color-primary` 등)
+- `@layer base` → `@layer components` 순서로 스타일 우선순위 관리
+- `tailwind-merge` v3에서 커스텀 테마 컬러가 충돌 시 드롭될 수 있으므로 동일 `cn()` 호출 내 혼용 주의
+- 불필요하거나 중복되는 스타일 정의는 적극 제거
+
+## 11. 타입스크립트
+
+- `strict: true` 모드 사용
+- 타입 명시적으로 작성 (`any` 사용 지양)
+- `as const` 배열로 리터럴 타입 관리 후 `z.enum()`과 연계
+- 제네릭을 활용한 타입 안전한 컴포넌트 작성 (예: `RHFInput<T>`)
+
+## 12. 성능 최적화
+
+- `next/image` 컴포넌트로 이미지 최적화 (`fill` + `sizes`, 적절한 포맷)
+- `next/dynamic`으로 무거운 클라이언트 컴포넌트 지연 로딩 (Lottie, 에디터 등)
+- 대량 리스트 렌더링 시 `@tanstack/react-virtual`로 가상화 적용
+- Prisma 쿼리 시 `select`/`include`로 필요한 필드만 조회
+- Tanstack Query의 `staleTime`, `gcTime` 적절히 설정하여 불필요한 리페치 방지
+- 불필요한 전체 라이브러리 임포트 대신 필요한 모듈만 임포트 (Tree-shaking)
+- 환경별 설정은 `@t3-oss/env-nextjs`를 통해 환경 변수로 관리
+
+- Husky + lint-staged로 pre-commit 시 ESLint + Prettier 자동 실행
+- Prettier + `prettier-plugin-tailwindcss`로 Tailwind 클래스 정렬 자동화
+
+## 13. Prisma
+
+- 모델명은 PascalCase, 필드명은 camelCase 사용
+- `@map` / `@@map`으로 DB 테이블/컬럼명과 코드 네이밍 분리 가능
+- 관계 필드에는 반드시 `@relation` 명시
+- 인덱스(`@index`)와 유니크 제약(`@unique`) 적절히 설정
