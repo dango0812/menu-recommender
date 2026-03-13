@@ -1,1 +1,2 @@
-export * from './escapeHtml';
+export * from './predicate';
+export * from './string';
