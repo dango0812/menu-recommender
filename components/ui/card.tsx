@@ -2,8 +2,12 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/tailwind';
 
-const cardVariants = cva('border border-gray-200 bg-white p-5 shadow-sm', {
+const cardVariants = cva('border', {
   variants: {
+    variant: {
+      elevated: 'border-gray-200 bg-white p-5 shadow-sm',
+      outlined: 'border-gray-100 bg-gray-50 p-4',
+    },
     round: {
       sm: 'rounded-xl',
       md: 'rounded-2xl',
@@ -11,6 +15,7 @@ const cardVariants = cva('border border-gray-200 bg-white p-5 shadow-sm', {
     },
   },
   defaultVariants: {
+    variant: 'elevated',
     round: 'md',
   },
 });
@@ -29,6 +34,6 @@ interface CardProps extends VariantProps<typeof cardVariants> {
  * </Card>
  * ```
  */
-export function Card({ children, round, className }: CardProps) {
-  return <div className={cn(cardVariants({ round }), className)}>{children}</div>;
+export function Card({ children, variant, round, className }: CardProps) {
+  return <div className={cn(cardVariants({ variant, round }), className)}>{children}</div>;
 }
