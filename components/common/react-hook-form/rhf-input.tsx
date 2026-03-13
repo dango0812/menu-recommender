@@ -12,6 +12,7 @@ import {
 
 import { Flex, Input, Text } from '@/components/ui';
 import { cn } from '@/lib/tailwind';
+import { isNumber } from '@/utils';
 
 import { FormHelperText } from '../form-helper-text';
 
@@ -58,7 +59,7 @@ export function RHFInput<T extends FieldValues>({
     }
 
     const numberValue = e.target.valueAsNumber;
-    field.onChange(Number.isNaN(numberValue) ? undefined : numberValue);
+    field.onChange(isNumber(numberValue) ? numberValue : undefined);
   };
 
   return (
