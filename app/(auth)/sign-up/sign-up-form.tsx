@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 import { RHFFormProvider, RHFInput } from '@/components/common/react-hook-form';
 import { Button } from '@/components/ui/button';
 import { ROUTES } from '@/constants/routes';
-import { type SignUpFormSchema, signUpSchema } from '@/constants/schemas';
+import { type SignUpFormSchema, signUpSchema } from '@/constants/schemas/auth';
 
 import { signUpAction } from './action';
 
