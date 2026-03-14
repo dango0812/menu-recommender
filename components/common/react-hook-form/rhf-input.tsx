@@ -1,6 +1,6 @@
 'use client';
 
-import { type ChangeEvent, type ReactNode } from 'react';
+import { type ChangeEvent, type InputHTMLAttributes, type ReactNode } from 'react';
 
 import {
   Controller,
@@ -16,10 +16,11 @@ import { isNumber } from '@/utils';
 
 import { FormHelperText } from '../form-helper-text';
 
-type RHFInputProps<T extends FieldValues> = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'name'> & {
-  /** 필드 이름 */
+type RHFInputProps<T extends FieldValues> = Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'name' | 'value' | 'defaultValue'
+> & {
   name: FieldPath<T>;
-  /** 필드 라벨 */
   label?: string;
   startDecorator?: ReactNode;
   endDecorator?: ReactNode;
@@ -62,6 +63,8 @@ export function RHFInput<T extends FieldValues>({
     field.onChange(isNumber(numberValue) ? numberValue : undefined);
   };
 
+  const { onChange, ...restProps } = props;
+
   return (
     <Flex
       direction="column"
@@ -81,10 +84,14 @@ export function RHFInput<T extends FieldValues>({
         render={({ field, fieldState: { error } }) => (
           <>
             <Input
+              {...restProps}
               {...field}
               type={type}
               value={field.value ?? ''}
-              onChange={e => handleChange(e, field)}
+              onChange={e => {
+                handleChange(e, field);
+                onChange?.(e);
+              }}
               fullWidth={fullWidth}
               startDecorator={startDecorator}
               endDecorator={endDecorator}
@@ -94,7 +101,6 @@ export function RHFInput<T extends FieldValues>({
                 },
                 className
               )}
-              {...props}
             />
             {error && <FormHelperText>{error.message}</FormHelperText>}
           </>

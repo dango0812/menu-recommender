@@ -111,7 +111,7 @@ function DropzoneContent({
     maxFiles: 1,
     onDrop: (acceptedFiles: File[], fileRejections: FileRejection[]) => {
       if (fileRejections.length > 0) {
-        const code = fileRejections[0].errors[0].code;
+        const code = fileRejections[0]?.errors[0]?.code;
         toast.error(rejectionMessages?.[code] ?? '이미지 업로드가 실패했어요');
         return;
       }
