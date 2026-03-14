@@ -1,14 +1,23 @@
 /**
- * 이미지 업로드 허용 MIME 타입
+ * 업로드 가능한 이미지 파일의 MIME 타입 정의
  */
-export const ACCEPTED_IMAGE_TYPES = {
-  'image/png': [],
-  'image/jpg': [],
-  'image/jpeg': [],
-  'image/heic': [],
-  'image/webp': [],
-} as const;
+export const ACCEPTED_IMAGE_TYPES = ['image/png', 'image/jpg', 'image/jpeg', 'image/heic', 'image/webp'] as const;
 
+/**
+ * react-dropzone에서 사용되는 accept 옵션
+ * 각 키는 MIME 타입이며, 값은 빈 배열로 설정 (react-dropzone 요구사항)
+ *
+ * @returns {Record<string, string[]>} react-dropzone에 전달할 accept 옵션 객체
+ * @example
+ * {
+ *   'image/png': [],
+ *   'image/jpg': [],
+ *   'image/jpeg': [],
+ *   'image/heic': [],
+ *   'image/webp': [],
+ * }
+ */
+export const DROPZONE_ACCEPT_IMAGE_TYPES = Object.fromEntries(ACCEPTED_IMAGE_TYPES.map(type => [type, []]));
 /**
  * 파일 업로드 거부 사유에 따른 메시지
  *
