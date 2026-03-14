@@ -1,8 +1,8 @@
 /**
  * HTML 특수 문자를 안전하게 이스케이프 처리
  *
- * @param text - 이스케이프할 문자열
- * @returns 이스케이프된 문자열
+ * @param {string} text - 이스케이프할 문자열
+ * @returns {string} 이스케이프된 문자열
  *
  * @example
  * const unsafeString = '<script>alert("XSS")</script>';
@@ -14,7 +14,7 @@
  * const safeInput = escapeHTML(userInput);
  * console.log(safeInput); // O&#39;Reilly &amp; Associates
  */
-export function escapeHTML(text: string) {
+export function escapeHTML(text: string): string {
   return text.replace(/[&<>'"]/g, entity => {
     switch (entity) {
       case '&':

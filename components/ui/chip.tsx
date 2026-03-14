@@ -4,7 +4,7 @@ import { type ButtonHTMLAttributes, type ReactNode } from 'react';
 
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/lib/tailwind-merge';
+import { cn } from '@/lib/tailwind';
 const chipVariants = cva(
   `inline-flex cursor-pointer items-center justify-center rounded-full font-medium whitespace-nowrap
   disabled:cursor-not-allowed disabled:opacity-50`,

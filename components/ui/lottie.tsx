@@ -4,7 +4,7 @@ import { memo, useEffect, useRef } from 'react';
 
 import lottie, { type AnimationItem } from 'lottie-web';
 
-import { cn } from '@/lib/tailwind-merge';
+import { cn } from '@/lib/tailwind';
 
 interface LottieProps {
   src: string;

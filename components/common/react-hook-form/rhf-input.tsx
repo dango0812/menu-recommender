@@ -1,18 +1,26 @@
 'use client';
 
-import { type ReactNode } from 'react';
+import { type ChangeEvent, type InputHTMLAttributes, type ReactNode } from 'react';
 
-import { Controller, type FieldPath, type FieldValues, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  type ControllerRenderProps,
+  type FieldPath,
+  type FieldValues,
+  useFormContext,
+} from 'react-hook-form';
 
 import { Flex, Input, Text } from '@/components/ui';
-import { cn } from '@/lib/tailwind-merge';
+import { cn } from '@/lib/tailwind';
+import { isNumber } from '@/utils';
 
 import { FormHelperText } from '../form-helper-text';
 
-type RHFInputProps<T extends FieldValues> = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'name'> & {
-  /** 필드 이름 */
+type RHFInputProps<T extends FieldValues> = Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'name' | 'value' | 'defaultValue'
+> & {
   name: FieldPath<T>;
-  /** 필드 라벨 */
   label?: string;
   startDecorator?: ReactNode;
   endDecorator?: ReactNode;
@@ -41,12 +49,29 @@ export function RHFInput<T extends FieldValues>({
   startDecorator,
   endDecorator,
   fullWidth,
+  type,
   ...props
 }: RHFInputProps<T>) {
   const { control } = useFormContext<T>();
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>, field: ControllerRenderProps<T>) => {
+    if (type !== 'number') {
+      return field.onChange(e.target.value);
+    }
+
+    const numberValue = e.target.valueAsNumber;
+    field.onChange(isNumber(numberValue) ? numberValue : undefined);
+  };
+
+  const { onChange, ...restProps } = props;
+
   return (
-    <Flex direction="column" className="gap-1.5">
+    <Flex
+      direction="column"
+      className={cn('gap-1.5', {
+        'w-full': fullWidth,
+      })}
+    >
       {label && (
         <Text as="label" className="text-sm text-gray-700">
           {label}
@@ -59,12 +84,23 @@ export function RHFInput<T extends FieldValues>({
         render={({ field, fieldState: { error } }) => (
           <>
             <Input
+              {...restProps}
               {...field}
+              type={type}
+              value={field.value ?? ''}
+              onChange={e => {
+                handleChange(e, field);
+                onChange?.(e);
+              }}
               fullWidth={fullWidth}
               startDecorator={startDecorator}
               endDecorator={endDecorator}
-              className={cn(error && 'border-error focus:border-error', className)}
-              {...props}
+              className={cn(
+                {
+                  'border-error focus:border-error': error,
+                },
+                className
+              )}
             />
             {error && <FormHelperText>{error.message}</FormHelperText>}
           </>

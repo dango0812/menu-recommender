@@ -5,7 +5,7 @@ import { type AnchorHTMLAttributes, type ButtonHTMLAttributes, type ReactNode, t
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Loader2 } from 'lucide-react';
 
-import { cn } from '@/lib/tailwind-merge';
+import { cn } from '@/lib/tailwind';
 
 const buttonVariants = cva(
   `relative inline-flex cursor-pointer items-center justify-center gap-3 rounded-2xl font-bold transition-colors
